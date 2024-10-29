@@ -1,6 +1,11 @@
 import gspread
 import datetime
 from google.oauth2.service_account import Credentials
+from colorama import init, Fore, Style
+from pyfiglet import Figlet
+
+# Initialize colorama library
+init()
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
