@@ -1,6 +1,8 @@
+import os
+import sys
 import gspread
-import datetime
 from google.oauth2.service_account import Credentials
+from datetime import datetime
 from colorama import init, Fore, Style
 from tabulate import tabulate
 import pyfiglet
@@ -53,7 +55,7 @@ def main():
     print("5. Exit\n")
 
     while True:
-        choice = input(Fore.CYAN + "Make your choice (1 - 5) and press 'Enter': ")
+        choice = input(Fore.CYAN + "Make your choice (1 - 5) and press 'Enter': \n")
         if choice == "1":
             add_medication(SHEET)
 
