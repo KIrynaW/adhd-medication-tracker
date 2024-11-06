@@ -38,8 +38,27 @@ def add_medication(SHEET):
     except Exception as e:
         print(f"Could not create a worksheet: {e}")
         
+def validate_date():
+    """
+    Logic to validate current date input and return error if the wrong format or old date is applied
+    """
+    while True:
+        
+        try:
+            
+            date_entry = datetime.strptime(date_entry, "%d-%m-%Y") # convert from string to datetime object
 
+            today_date = datetime.today().date()
 
+            if date_entry.date() == today_date:
+                print(f"{date_entry} was successfully logged")
+            elif date_entry.date() is not today_date:
+                print("You have entered a past date. To create today's log, current date must be entered")
+                print("Would you like to log a past date? 1.Yes 2.No")
+            break
+        except ValueError as error_creation_time:
+            print(f"Invalid date: {error_creation_time}")
+            
 def main():
     """
     Display the primary menu where the user is introduced to the tracker and
@@ -53,10 +72,12 @@ def main():
     print("3. View medication logs")
     print("4. Evaluate efficacy")
     print("5. Exit\n")
+    choice = input(Fore.CYAN + "Make your choice (1 - 5) and press 'Enter': \n")
 
     while True:
-        choice = input(Fore.CYAN + "Make your choice (1 - 5) and press 'Enter': \n")
         if choice == "1":
             add_medication(SHEET)
+        elif choice == "2":
+            validate_date()
 
 main()    
