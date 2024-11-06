@@ -26,9 +26,8 @@ def add_medication(SHEET):
     """
     Create a new worksheet with a new medication name and headings to log progress
     """
-
     try:
-        medication_name = input("Enter the new medication name: \n")
+        medication_name = input(Fore.LIGHTBLACK_EX + "Enter the new medication name: \n" + Fore.RESET)
         new_medication = SHEET.add_worksheet(title=medication_name, rows='100', cols='9')
         new_medication.append_row(
             ["Date", "Dose(mg)", "Intake per day", "First dose intake", "Second dose intake", "Third dose intake", "Efficacy(1-10)", "Side effects", "Personal observations"]
@@ -43,22 +42,38 @@ def validate_date():
     Logic to validate current date input and return error if the wrong format or old date is applied
     """
     while True:
-        
+
+        date_entry = input(Fore.LIGHTBLACK_EX +"Enter today's date in this format DD-MM-YYY: \n" + Fore.RESET)
+        today_date = datetime.today().date()
         try:
-            
             date_entry = datetime.strptime(date_entry, "%d-%m-%Y") # convert from string to datetime object
-
-            today_date = datetime.today().date()
-
             if date_entry.date() == today_date:
                 print(f"{date_entry} was successfully logged")
-            elif date_entry.date() is not today_date:
-                print("You have entered a past date. To create today's log, current date must be entered")
-                print("Would you like to log a past date? 1.Yes 2.No")
+            else:
+                print(Fore.RED +"You have entered a wrong date. To create today's log, current date must be entered")
             break
         except ValueError as error_creation_time:
-            print(f"Invalid date: {error_creation_time}")
-            
+            print(Fore.RED + f" {date_entry} is an invalid date")
+
+   # return date_entry.strftime("%d-%m-%Y")
+
+def new_log(SHEET):
+    """
+    Add current date to the selected worksheet
+    """
+    choose_medication = input(Fore.LIGHTBLACK_EX + "Enter medication name you want to log: \n" + Fore.RESET).capitalize()
+    
+    try:
+        medication_worksheet = SHEET.worksheet(choose_medication)
+        date_log = validate_date()
+        medication_worksheet.append_row(date_log)
+    except gspread.exceptions.WorksheetNotFound:
+        print(Fore.RED + f"Medication with a name'{choose_medication}'does not exist")
+        add_medication(SHEET) # If medication does not exist you can opt to create new one
+        
+        
+
+
 def main():
     """
     Display the primary menu where the user is introduced to the tracker and
@@ -72,12 +87,12 @@ def main():
     print("3. View medication logs")
     print("4. Evaluate efficacy")
     print("5. Exit\n")
-    choice = input(Fore.CYAN + "Make your choice (1 - 5) and press 'Enter': \n")
+    choice = input(Fore.LIGHTBLACK_EX + "Make your choice (1 - 5) and press 'Enter': \n" + Fore.RESET)
 
     while True:
         if choice == "1":
             add_medication(SHEET)
         elif choice == "2":
-            validate_date()
+            new_log(SHEET)
 
 main()    
