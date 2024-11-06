@@ -37,25 +37,28 @@ def add_medication(SHEET):
     except Exception as e:
         print(f"Could not create a worksheet: {e}")
         
-def validate_date():
-    """
-    Logic to validate current date input and return error if the wrong format or old date is applied
-    """
-    while True:
-
-        date_entry = input(Fore.LIGHTBLACK_EX +"Enter today's date in this format DD-MM-YYY: \n" + Fore.RESET)
-        today_date = datetime.today().date()
-        try:
-            date_entry = datetime.strptime(date_entry, "%d-%m-%Y") # convert from string to datetime object
-            if date_entry.date() == today_date:
-                print(f"{date_entry} was successfully logged")
-            else:
-                print(Fore.RED +"You have entered a wrong date. To create today's log, current date must be entered")
-            break
-        except ValueError as error_creation_time:
-            print(Fore.RED + f" {date_entry} is an invalid date")
-
-   # return date_entry.strftime("%d-%m-%Y")
+#def validate_date():
+#    """
+#    Logic to validate current date input and return error if the wrong format or old date is applied
+#    """
+#    while True:
+#        date_choice = input("Create a log for today's date? Y/N\n")
+#        if 'y' in date_choice.lower():
+#            print("Creating a log for today")
+#            return datetime.today().date()
+#        else:
+#            date_entry = input(Fore.LIGHTBLACK_EX +"Enter date in this format DD/MM/YYY: \n" + Fore.RESET)
+#            today_date = datetime.today().date()
+#            try:
+#                date_entry = datetime.strptime(date_entry, "%d/%m/%Y") # convert from string to datetime object
+#                if date_entry.date() <= today_date:
+#                    print(f"{date_entry} was successfully logged")
+#                else:
+#                    print(Fore.RED +"You have entered a future date. To enter a previous/missed log, past date must be entered")
+#                break
+#            except ValueError as error_creation_time:
+#                print(Fore.RED + f" {date_entry} is an invalid date")
+#    return date_entry.strftime("%d/%m/%Y")
 
 def new_log(SHEET):
     """
@@ -65,7 +68,9 @@ def new_log(SHEET):
     
     try:
         medication_worksheet = SHEET.worksheet(choose_medication)
-        date_log = validate_date()
+        # Add current date autofill
+        print("Creating a log for today")
+        date_log = datetime.today().date().strftime("%d/%m/%Y")
         medication_worksheet.append_row(date_log)
     except gspread.exceptions.WorksheetNotFound:
         print(Fore.RED + f"Medication with a name'{choose_medication}'does not exist")
