@@ -47,7 +47,7 @@ def validate_date(worksheet):
         print("Today's log already exists, skipping...")
         return False
     else:
-        return True
+        return date_log
 
 #def past_date():
 #    """
@@ -72,6 +72,7 @@ def validate_date(worksheet):
 #                print(Fore.RED + f" {date_entry} is an invalid date")
 #    return date_entry.strftime("%d/%m/%Y")
 
+
 def new_log(SHEET):
     """
     Add current date to the selected worksheet
@@ -82,6 +83,8 @@ def new_log(SHEET):
         medication_worksheet = SHEET.worksheet(choose_medication)
         if not validate_date(medication_worksheet):
             return
+        else:
+            medication_worksheet.append_row([validate_date(medication_worksheet)])
         # Add current date autofill
         print("Creating a log for today")
         # get input arguments from user ...
@@ -93,7 +96,6 @@ def new_log(SHEET):
         efficacy = input("How effective did you find the medication?: (1-10)")
         side_effects = input("Have you experienced any side effects today?: Y/N")
         personal_observation = input("Describe in short, personal observations regarding your experience: max 30 words")
-        medication_worksheet.append_row([date_log])
     except gspread.exceptions.WorksheetNotFound:
         print(Fore.RED + f"Medication with a name'{choose_medication}'does not exist")
         add_medication(SHEET) # If medication does not exist you can opt to create new one
