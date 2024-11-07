@@ -98,13 +98,19 @@ def validate_intake():
             print(Fore.RED + "The frequency is invalid, try again")
         else:
             break
-    doses_log = ['None', 'None', 'None']
+    intake_log = ['None', 'None', 'None']
     for i in range(frequency_log):
-        if "yes" in input(Fore.YELLOW + f"Have you taken dose {i+1} today (yes/no): \n" + Fore.RESET).lower():
-            doses_log[i] = ("Yes")
-        else:
-            doses_log[i] = ("No")
-    return [frequency_log, doses_log]
+        while True:
+            dose_choice = input(Fore.YELLOW + f"Have you taken dose {i+1} today (yes/no): \n" + Fore.RESET).lower()
+            if "yes" in dose_choice:
+                intake_log[i] = ("Yes")
+                break
+            elif "no" in dose_choice:
+                intake_log[i] = ("No")
+                break
+            else:
+                print(Fore.RED + f"{dose_choice} is an invalid answer, please enter (yes/no)")
+    return [frequency_log, intake_log]
 
 def validate_efficacy():
     while True:
@@ -116,6 +122,19 @@ def validate_efficacy():
         else:
             print(Fore.RED + f"{efficacy_log} is not a number, please input (0-10)")
 
+def validate_side_effects():
+    """
+    Function that handles medication side effect input; 
+    making sure it returns only a yes or a no string and triggers error if int is input
+    """
+    while True:
+        side_effects_log = input(Fore.YELLOW + "Have you experienced any side effects today (yes/no) ?: \n" + Fore.RESET).lower()
+        if "yes" in side_effects_log:
+            return "Yes"
+        elif "no" in side_effects_log:
+            return "No"
+        else:
+            print(Fore.RED + f"{side_effects_log} is an invalid answer, please enter (yes or no) answer") 
 
 def new_log(SHEET):
     """
@@ -129,15 +148,17 @@ def new_log(SHEET):
         else:
             date = validate_date(medication_worksheet)
             dose = validate_dose()
-            frequency_log, doses_log = validate_intake()
+            frequency_log, intake_log = validate_intake()
             efficacy = validate_efficacy()
+            side_effects = validate_side_effects()
+
+
             medication_worksheet.append_row([
-                date, dose, frequency_log, doses_log[0], doses_log[1], doses_log[2], efficacy, 
+                date, dose, frequency_log, intake_log[0], intake_log[1], intake_log[2], efficacy, side_effects
                 ])
         # Add current date autofill
         print("Creating a log for today...")
         # get input arguments from user ...
-        side_effects = input("Have you experienced any side effects today?: Y/N")
         personal_observation = input("Describe in short, personal observations regarding your experience: max 30 words")
     except gspread.exceptions.WorksheetNotFound:
         print(Fore.RED + f"Medication with a name'{choose_medication}'does not exist")
