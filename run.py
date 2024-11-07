@@ -83,7 +83,36 @@ def validate_dose():
         except ValueError:
             print("Please enter a number")
 
+def validate_intake():
+    """
+    Function to handle the medication intake input;
+    user prompted to input medicationmfrequency and based on that
+    the intake is adjusted
+    """
+    while True:
+        intake_per_day = int(input("What is the frequency of the medication intake per day: \n"))
+        if intake_per_day == 1:
+            return intake_per_day
+            first_dose_validation()
+        elif intake_per_day == 2:
+            return intake_per_day
+        elif intake_per_day == 3:
+            return intake_per_day
+            # second_dose = input("Have you taken your second dose today: yes/no \n").lower()
+            # third_dose = input("Have you taken your third dose today: yes/no \n").lower()
+        else:
+            print("The frequency is invalid, try again")
 
+def first_dose_validation():
+    """
+    Function that handles first dose intake validation
+    """
+    while True:
+        first_dose = input("Have you taken your first dose today: yes/no \n").lower()
+        if "yes" in first_dose:
+            return "Yes"
+        else:
+            return "No"
 
 
 def new_log(SHEET):
@@ -100,14 +129,12 @@ def new_log(SHEET):
             medication_worksheet.append_row([
                 validate_date(medication_worksheet), 
                 validate_dose(),
+                validate_intake(),
                 ])
         # Add current date autofill
         print("Creating a log for today...")
         # get input arguments from user ...
-        intake_per_day = input("Intake per day: ")
-        first_dose = input("Have you taken your first dose today: Y/N")
-        second_dose = input("Have you taken your second dose today: Y/N")
-        third_dose = input("Have you taken your third dose today: Y/N")
+        
         efficacy = input("How effective did you find the medication?: (1-10)")
         side_effects = input("Have you experienced any side effects today?: Y/N")
         personal_observation = input("Describe in short, personal observations regarding your experience: max 30 words")
