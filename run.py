@@ -78,8 +78,8 @@ def validate_dose():
     """
     while True:
         try:
-            dose = int(input("Enter medication dose in mg: \n"))
-            return dose
+            dose_log = int(input("Enter medication dose in mg: \n"))
+            return dose_log
         except ValueError:
             print("Please enter a number")
 
@@ -89,17 +89,22 @@ def validate_intake():
     user prompted to input medicationmfrequency and based on that
     the intake is adjusted
     """
-    intake_per_day = int(input("What is the frequency of the medication intake per day: \n"))
-    if intake_per_day > 3:
+    frequency_log = int(input("What is the frequency of the medication intake per day: \n"))
+    if frequency_log > 3:
         print("The frequency is invalid, try again")
         return None
-    doses = ['None', 'None', 'None']
-    for i in range(intake_per_day):
+    doses_log = ['None', 'None', 'None']
+    for i in range(frequency_log):
         if "yes" in input(f"Have you taken dose {i+1} today (yes/no): \n").lower():
-            doses[i] = ("Yes")
+            doses_log[i] = ("Yes")
         else:
-            doses[i] = ("No")
-    return [intake_per_day, doses]
+            doses_log[i] = ("No")
+    return [frequency_log, doses_log]
+
+def validate_efficacy():
+    while True:
+        efficacy = input("How effective did you find the medication?: (1-10)")
+
 
 
 def new_log(SHEET):
@@ -114,15 +119,13 @@ def new_log(SHEET):
         else:
             date = validate_date(medication_worksheet)
             dose = validate_dose()
-            intake_per_day, doses = validate_intake()
+            frequency_log, doses_log = validate_intake()
             medication_worksheet.append_row([
-                date, dose, intake_per_day, doses[0], doses[1], doses[2] 
+                date, dose, frequency_log, doses_log[0], doses_log[1], doses_log[2] 
                 ])
         # Add current date autofill
         print("Creating a log for today...")
         # get input arguments from user ...
-        
-        efficacy = input("How effective did you find the medication?: (1-10)")
         side_effects = input("Have you experienced any side effects today?: Y/N")
         personal_observation = input("Describe in short, personal observations regarding your experience: max 30 words")
     except gspread.exceptions.WorksheetNotFound:
