@@ -92,10 +92,12 @@ def validate_intake():
     user prompted to input medicationmfrequency and based on that
     the intake is adjusted
     """
-    frequency_log = int(input(Fore.YELLOW + "What is the frequency of the medication intake per day: \n" + Fore.RESET))
-    if frequency_log > 3:
-        print(Fore.RED + "The frequency is invalid, try again")
-        return None
+    while True:
+        frequency_log = int(input(Fore.YELLOW + "What is the frequency of the medication intake per day: \n" + Fore.RESET))
+        if frequency_log > 3:
+            print(Fore.RED + "The frequency is invalid, try again")
+        else:
+            break
     doses_log = ['None', 'None', 'None']
     for i in range(frequency_log):
         if "yes" in input(Fore.YELLOW + f"Have you taken dose {i+1} today (yes/no): \n" + Fore.RESET).lower():
