@@ -89,30 +89,17 @@ def validate_intake():
     user prompted to input medicationmfrequency and based on that
     the intake is adjusted
     """
-    while True:
-        intake_per_day = int(input("What is the frequency of the medication intake per day: \n"))
-        if intake_per_day == 1:
-            return intake_per_day
-            first_dose_validation()
-        elif intake_per_day == 2:
-            return intake_per_day
-        elif intake_per_day == 3:
-            return intake_per_day
-            # second_dose = input("Have you taken your second dose today: yes/no \n").lower()
-            # third_dose = input("Have you taken your third dose today: yes/no \n").lower()
+    intake_per_day = int(input("What is the frequency of the medication intake per day: \n"))
+    if intake_per_day > 3:
+        print("The frequency is invalid, try again")
+        return None
+    doses = ['None', 'None', 'None']
+    for i in range(intake_per_day):
+        if "yes" in input(f"Have you taken dose {i+1} today (yes/no): \n").lower():
+            doses[i] = ("Yes")
         else:
-            print("The frequency is invalid, try again")
-
-def first_dose_validation():
-    """
-    Function that handles first dose intake validation
-    """
-    while True:
-        first_dose = input("Have you taken your first dose today: yes/no \n").lower()
-        if "yes" in first_dose:
-            return "Yes"
-        else:
-            return "No"
+            doses[i] = ("No")
+    return [intake_per_day, doses]
 
 
 def new_log(SHEET):
@@ -120,16 +107,16 @@ def new_log(SHEET):
     Add current date to the selected worksheet
     """
     choose_medication = input(Fore.LIGHTBLACK_EX + "Enter medication name you want to log: \n" + Fore.RESET).capitalize()
-    
     try:
         medication_worksheet = SHEET.worksheet(choose_medication)
         if not validate_date(medication_worksheet):
             return
         else:
+            date = validate_date(medication_worksheet)
+            dose = validate_dose()
+            intake_per_day, doses = validate_intake()
             medication_worksheet.append_row([
-                validate_date(medication_worksheet), 
-                validate_dose(),
-                validate_intake(),
+                date, dose, intake_per_day, doses[0], doses[1], doses[2] 
                 ])
         # Add current date autofill
         print("Creating a log for today...")
