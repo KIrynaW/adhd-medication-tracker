@@ -72,6 +72,19 @@ def validate_date(worksheet):
 #                print(Fore.RED + f" {date_entry} is an invalid date")
 #    return date_entry.strftime("%d/%m/%Y")
 
+def validate_dose():
+    """
+    Function that handles the dose input 
+    """
+    while True:
+        try:
+            dose = int(input("Enter medication dose in mg: \n"))
+            return dose
+        except ValueError:
+            print("Please enter a number")
+
+
+
 
 def new_log(SHEET):
     """
@@ -84,11 +97,13 @@ def new_log(SHEET):
         if not validate_date(medication_worksheet):
             return
         else:
-            medication_worksheet.append_row([validate_date(medication_worksheet)])
+            medication_worksheet.append_row([
+                validate_date(medication_worksheet), 
+                validate_dose(),
+                ])
         # Add current date autofill
-        print("Creating a log for today")
+        print("Creating a log for today...")
         # get input arguments from user ...
-        dose = input("Dose (mg): ")
         intake_per_day = input("Intake per day: ")
         first_dose = input("Have you taken your first dose today: Y/N")
         second_dose = input("Have you taken your second dose today: Y/N")
