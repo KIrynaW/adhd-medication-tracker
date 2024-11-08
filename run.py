@@ -113,6 +113,11 @@ def validate_intake():
     return [frequency_log, intake_log]
 
 def validate_efficacy():
+    """
+    Function that handles efficacy of medication input; 
+    the user can rate the effectivnes from 0-10,
+    if str or a int higher than 10 is input, it shows error
+    """
     while True:
         efficacy_log = int(input(Fore.YELLOW + "How effective did you find the medication (0-10)?: \n" + Fore.RESET))
         if efficacy_log <= int(10):
@@ -136,12 +141,34 @@ def validate_side_effects():
         else:
             print(Fore.RED + f"{side_effects_log} is an invalid answer, please enter (yes or no) answer") 
 
+def validate_user_observation():
+    """
+    Function to handle users personal str input describing effects and observations;
+    to prevent user from writing more than 35 words max. if limit is reached, shows error in logging
+    """
+    while True:
+        observation_log = input(Fore.YELLOW + "Describe in short, personal observations regarding your experience taking the medication (max 30 words): \n" + Fore.RESET)
+        isolate_words = observation_log.split()
+        contains_words = any(word.isalpha() for word in isolate_words)
+        if len(isolate_words) > 30:
+            print(Fore.RED + "You have entered more than 30 words, please enter no more than 30 words")
+        elif not contains_words:
+            print(Fore.RED + f"You have entered '{observation_log}', please use words, not only numbers")
+        else:
+            return observation_log
+
+
 def new_log(SHEET):
     """
-    Add current date to the selected worksheet
+    Function autofills current date, and appends user input(dose, 
+    frequency of intake, doses taken/missed, presense of side effects, 
+    and user observation) to an existing medication worksheer. 
+    The function checks for existance of worksheet selected by the user,
+    and offers the user to create new medication worksheet if it does not exist
     """
     choose_medication = input(Fore.YELLOW + "Enter medication name you want to log: \n" + Fore.RESET).capitalize()
     try:
+        # Add current date autofill
         medication_worksheet = SHEET.worksheet(choose_medication)
         if not validate_date(medication_worksheet):
             return
@@ -151,15 +178,15 @@ def new_log(SHEET):
             frequency_log, intake_log = validate_intake()
             efficacy = validate_efficacy()
             side_effects = validate_side_effects()
+            user_observation = validate_user_observation()
 
 
             medication_worksheet.append_row([
-                date, dose, frequency_log, intake_log[0], intake_log[1], intake_log[2], efficacy, side_effects
+                date, dose, frequency_log, intake_log[0], intake_log[1], intake_log[2], efficacy, side_effects, user_observation
                 ])
-        # Add current date autofill
-        print("Creating a log for today...")
-        # get input arguments from user ...
-        personal_observation = input("Describe in short, personal observations regarding your experience: max 30 words")
+
+        print(Fore.GREEN + "Creating a log for today.....")
+        
     except gspread.exceptions.WorksheetNotFound:
         print(Fore.RED + f"Medication with a name'{choose_medication}'does not exist")
         add_medication(SHEET) # If medication does not exist you can opt to create new one
