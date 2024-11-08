@@ -49,29 +49,6 @@ def validate_date(worksheet):
     else:
         return date_log
 
-#def past_date():
-#    """
-#    Logic to validate past date input and return error if the wrong format or future date is applied
-#    """
-#    while True:
-#        date_choice = input("Create a log for a missed log date?: Y/N \n")
-#        if 'n' in date_choice.lower():
-#            print("Creating a log for today")
-#            validate_date(worksheet)
-#        else:
-#            date_entry = input(Fore.LIGHTBLACK_EX +"Enter missed date in this format DD/MM/YYY: \n" + Fore.RESET)
-#            today_date = datetime.today().date()
-#            try:
-#                date_entry = datetime.strptime(date_entry, "%d/%m/%Y") 
-#                if date_entry.date() <= today_date:
-#                    print(f"{date_entry} was successfully logged")
-#                else:
-#                    print(Fore.RED +"You have entered a future date. To enter a previous/missed log, past date must be entered")
-#                break
-#            except ValueError as error_creation_time:
-#                print(Fore.RED + f" {date_entry} is an invalid date")
-#    return date_entry.strftime("%d/%m/%Y")
-
 def validate_dose():
     """
     Function that handles the dose input 
@@ -186,7 +163,7 @@ def new_log(SHEET):
                 ])
 
         print(Fore.GREEN + "Creating a log for today.....")
-        
+
     except gspread.exceptions.WorksheetNotFound:
         print(Fore.RED + f"Medication with a name'{choose_medication}'does not exist")
         add_medication(SHEET) # If medication does not exist you can opt to create new one
