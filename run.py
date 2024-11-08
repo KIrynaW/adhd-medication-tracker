@@ -67,12 +67,12 @@ def validate_dose():
     while True:
         try:
             dose_log = int(input(Fore.YELLOW + "Enter medication dose in (mg): \n" + Fore.RESET))
-            if dose_log == int(0):
+            if dose_log == 0:
                 print(Fore.RED + f"Medication dose cannot be {dose_log}, please enter a correct dose in (mg)\n")
             else:
                 return dose_log
-        except ValueError:
-            print(Fore.RED + f"Medication dose cannot be {dose_log}, please enter a correct dose in (mg)\n")
+        except Exception as e:
+            print(Fore.RED + f"Medication dose cannot be a word or a letter, please enter a number in mg:\n")
 
 def validate_intake():
     """
@@ -107,13 +107,15 @@ def validate_efficacy():
     if str or a int higher than 10 is input, it shows error
     """
     while True:
-        efficacy_log = int(input(Fore.YELLOW + "How effective did you find the medication (0-10)?: \n" + Fore.RESET))
-        if efficacy_log <= int(10):
-            return efficacy_log
-        elif efficacy_log > int(10):
-            print(Fore.RED + f"{efficacy_log} is above the grading range, please input (0-10)\n")
-        else:
-            print(Fore.RED + f"{efficacy_log} is not a number, please input (0-10)\n")
+
+        try:
+            efficacy_log = int(input(Fore.YELLOW + "How effective did you find the medication (0-10)?: \n" + Fore.RESET))
+            if efficacy_log <= int(10):
+                return efficacy_log
+            elif efficacy_log > int(10):
+                print(Fore.RED + f"{efficacy_log} is above the rating range, please enter (0-10)\n")
+        except Exception as e:
+                print(Fore.RED + f"Your input is invalid, please enter a number rating (0-10)\n")
 
 def validate_side_effects():
     """
@@ -168,7 +170,6 @@ def new_log(SHEET):
             side_effects = validate_side_effects()
             user_observation = validate_user_observation()
 
-
             medication_worksheet.append_row([
                 date, dose, frequency_log, intake_log[0], intake_log[1], intake_log[2], efficacy, side_effects, user_observation
                 ])
@@ -183,10 +184,12 @@ def exit_or_menu():
     """
     Function that handles return to Menu or Exit program
     """
-    print(" Press 1. to return to Menu:")
-    print(" Press 2. to Exit.\n")
-    select = input(Fore.CYAN + "Enter your choice (1 or 2): \n" + Fore.RESET)
+    
     while True:
+
+        print(" Press 1. to return to Menu:")
+        print(" Press 2. to Exit.\n")
+        select = input(Fore.CYAN + "Enter your choice (1 or 2): \n" + Fore.RESET)
         if select == "1":
             print(Fore.GREEN + "Returning to Main Menu")
             time.sleep(1)
@@ -197,6 +200,7 @@ def exit_or_menu():
             sys.exit()
         else:
             print(Fore.RED + "Invalid choice. Please enter 1 to return to Menu or 2 to Exit.")
+            continue
         
 def main():
     """
