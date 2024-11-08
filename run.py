@@ -41,7 +41,7 @@ def add_medication(SHEET):
             medication_name = input(Fore.YELLOW + "Enter the new medication name: \n" + Fore.RESET).capitalize()
             new_medication = SHEET.add_worksheet(title=medication_name, rows='100', cols='9')
             new_medication.append_row(
-                ["Date", "Dose", "Frequency", "Dose 1", "Dose 2", "Dose 3", "Efficacy", "Side effects", "Observations"]
+                ["Date", "Dose(mg)", "Intak(day)", "Dose 1", "Dose 2", "Dose 3", "Efficacy(0-10)", "Side effects", "Observations"]
             )
             print(Fore.GREEN + f"New medication '{medication_name}' successfully created\n")
             return new_medication
@@ -191,7 +191,7 @@ def view_medication_logs():
         medication_info = SHEET.worksheet(find_medication)
         print(Fore.CYAN + f"You chose to view log history for '{find_medication}': \n")
         logs = medication_info.get_all_values()
-        print(tabulate(logs, headers="firstrow", tablefmt="fancy_grid", maxcolwidths=[10,None,None,None,None,None,None,None,20], stralign="center"))
+        print(tabulate(logs, tablefmt="fancy_grid", maxcolwidths=[10,4,6,4,4,4,8,7,14], stralign="center"))
 
     except gspread.exceptions.WorksheetNotFound:
         print(Fore.RED + f"Medication with a name '{find_medication}' does not exist\n")
