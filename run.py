@@ -6,6 +6,7 @@ from datetime import datetime
 from colorama import init, Fore, Style
 from tabulate import tabulate
 import pyfiglet
+import time
 
 # Initialize colorama library
 init(autoreset=True)
@@ -21,21 +22,31 @@ SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open("adhd_medication_tracker")
 
+def menu():
+
+    print(Fore.CYAN + "**** Main Menu ****\n")
+    print(" 1. Add new medication")
+    print(" 2. Create a new log")
+    print(" 3. View medication logs")
+    print(" 4. Evaluate efficacy")
+    print(" 5. Exit\n")
+    print("*" * 50)
 
 def add_medication(SHEET):
     """
     Create a new worksheet with a new medication name and headings to log progress
     """
-    try:
-        medication_name = input(Fore.YELLOW + "Enter the new medication name: \n" + Fore.RESET).capitalize()
-        new_medication = SHEET.add_worksheet(title=medication_name, rows='100', cols='9')
-        new_medication.append_row(
-            ["Date", "Dose(mg)", "Intake per day", "First dose intake", "Second dose intake", "Third dose intake", "Efficacy(1-10)", "Side effects", "Personal observations"]
-        )
-        print(f"New medication '{medication_name}' successfully created")
-        return new_medication
-    except Exception as e:
-        print(Fore.RED + f"Could not create a worksheet: {e}")
+    while True:
+        try:
+            medication_name = input(Fore.YELLOW + "Enter the new medication name: \n" + Fore.RESET).capitalize()
+            new_medication = SHEET.add_worksheet(title=medication_name, rows='100', cols='9')
+            new_medication.append_row(
+                ["Date", "Dose(mg)", "Intake per day", "First dose intake", "Second dose intake", "Third dose intake", "Efficacy(1-10)", "Side effects", "Personal observations"]
+            )
+            print(Fore.GREEN + f"New medication '{medication_name}' successfully created\n")
+            return new_medication
+        except Exception as e:
+            print(Fore.RED + f"Could not create a worksheet: {e}\n")
 
 def validate_date(worksheet):
     """
@@ -44,7 +55,7 @@ def validate_date(worksheet):
     """
     date_log = datetime.today().date().strftime("%d/%m/%Y")
     if worksheet.findall(date_log):
-        print(Fore.RED + "Today's log already exists, skipping...")
+        print(Fore.RED + "Today's log already exists, skipping...\n")
         return False
     else:
         return date_log
@@ -57,11 +68,11 @@ def validate_dose():
         try:
             dose_log = int(input(Fore.YELLOW + "Enter medication dose in (mg): \n" + Fore.RESET))
             if dose_log == int(0):
-                print(Fore.RED + f"Medication dose cannot be {dose_log}, please enter a correct dose in (mg)")
+                print(Fore.RED + f"Medication dose cannot be {dose_log}, please enter a correct dose in (mg)\n")
             else:
                 return dose_log
         except ValueError:
-            print(Fore.RED + f"Medication dose cannot be {dose_log}, please enter a correct dose in (mg)")
+            print(Fore.RED + f"Medication dose cannot be {dose_log}, please enter a correct dose in (mg)\n")
 
 def validate_intake():
     """
@@ -70,9 +81,9 @@ def validate_intake():
     the intake is adjusted
     """
     while True:
-        frequency_log = int(input(Fore.YELLOW + "What is the frequency of the medication intake per day: \n" + Fore.RESET))
+        frequency_log = int(input(Fore.YELLOW + "What is the frequency of the medication intake per day (1-3): \n" + Fore.RESET))
         if frequency_log > 3:
-            print(Fore.RED + "The frequency is invalid, try again")
+            print(Fore.RED + "The frequency is invalid, try again\n")
         else:
             break
     intake_log = ['None', 'None', 'None']
@@ -86,7 +97,7 @@ def validate_intake():
                 intake_log[i] = ("No")
                 break
             else:
-                print(Fore.RED + f"{dose_choice} is an invalid answer, please enter (yes/no)")
+                print(Fore.RED + f"{dose_choice} is an invalid answer, please enter (yes/no)\n")
     return [frequency_log, intake_log]
 
 def validate_efficacy():
@@ -100,9 +111,9 @@ def validate_efficacy():
         if efficacy_log <= int(10):
             return efficacy_log
         elif efficacy_log > int(10):
-            print(Fore.RED + f"{efficacy_log} is above the grading range, please input (0-10)")
+            print(Fore.RED + f"{efficacy_log} is above the grading range, please input (0-10)\n")
         else:
-            print(Fore.RED + f"{efficacy_log} is not a number, please input (0-10)")
+            print(Fore.RED + f"{efficacy_log} is not a number, please input (0-10)\n")
 
 def validate_side_effects():
     """
@@ -110,13 +121,13 @@ def validate_side_effects():
     making sure it returns only a yes or a no string and triggers error if int is input
     """
     while True:
-        side_effects_log = input(Fore.YELLOW + "Have you experienced any side effects today (yes/no) ?: \n" + Fore.RESET).lower()
+        side_effects_log = input(Fore.YELLOW + "Have you experienced any side effects today (yes/no)?: \n" + Fore.RESET).lower()
         if "yes" in side_effects_log:
             return "Yes"
         elif "no" in side_effects_log:
             return "No"
         else:
-            print(Fore.RED + f"{side_effects_log} is an invalid answer, please enter (yes or no) answer") 
+            print(Fore.RED + f"{side_effects_log} is an invalid answer, please enter (yes or no) answer\n") 
 
 def validate_user_observation():
     """
@@ -128,9 +139,9 @@ def validate_user_observation():
         isolate_words = observation_log.split()
         contains_words = any(word.isalpha() for word in isolate_words)
         if len(isolate_words) > 30:
-            print(Fore.RED + "You have entered more than 30 words, please enter no more than 30 words")
+            print(Fore.RED + "You have entered more than 30 words, please enter no more than 30 words\n")
         elif not contains_words:
-            print(Fore.RED + f"You have entered '{observation_log}', please use words, not only numbers")
+            print(Fore.RED + f"You have entered '{observation_log}', please use words, not only numbers\n")
         else:
             return observation_log
 
@@ -162,13 +173,31 @@ def new_log(SHEET):
                 date, dose, frequency_log, intake_log[0], intake_log[1], intake_log[2], efficacy, side_effects, user_observation
                 ])
 
-        print(Fore.GREEN + "Creating a log for today.....")
+        print(Fore.GREEN + "Creating a log for today.....\n")
 
     except gspread.exceptions.WorksheetNotFound:
-        print(Fore.RED + f"Medication with a name'{choose_medication}'does not exist")
+        print(Fore.RED + f"Medication with a name'{choose_medication}'does not exist\n")
         add_medication(SHEET) # If medication does not exist you can opt to create new one
-        
 
+def exit_or_menu():
+    """
+    Function that handles return to Menu or Exit program
+    """
+    print(" Press 1. to return to Menu:")
+    print(" Press 2. to Exit.\n")
+    select = input(Fore.CYAN + "Enter your choice (1 or 2): \n" + Fore.RESET)
+    while True:
+        if select == "1":
+            print(Fore.GREEN + "Returning to Main Menu")
+            time.sleep(1)
+            return
+        elif select == "2":
+            print(Fore.MAGENTA + "Exiting the ADHD Medication Tracker....See you soon!....\n")
+            time.sleep(1)
+            sys.exit()
+        else:
+            print(Fore.RED + "Invalid choice. Please enter 1 to return to Menu or 2 to Exit.")
+        
 def main():
     """
     Display the primary menu where the user is introduced to the tracker and
@@ -176,18 +205,15 @@ def main():
     """
     header_ascii = pyfiglet.figlet_format("Welcome to ADHD Medication Tracker", font="smslant")
     print(Fore.YELLOW + header_ascii)
-    print(Fore.CYAN + "Please choose an option:\n")
-    print("1. Add new medication")
-    print("2. Create a new log")
-    print("3. View medication logs")
-    print("4. Evaluate efficacy")
-    print("5. Exit\n")
-    choice = input(Fore.CYAN + "Make your choice (1 - 5) and press 'Enter': \n" + Fore.RESET)
-
+    
     while True:
+        menu()
+        choice = input(Fore.CYAN + "Make your choice (1 - 5) and press 'Enter': \n" + Fore.RESET)
         if choice == "1":
             add_medication(SHEET)
+            exit_or_menu()
         elif choice == "2":
             new_log(SHEET)
+            exit_or_menu()
 
 main()    
