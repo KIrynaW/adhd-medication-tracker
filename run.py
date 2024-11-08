@@ -41,7 +41,7 @@ def add_medication(SHEET):
             medication_name = input(Fore.YELLOW + "Enter the new medication name: \n" + Fore.RESET).capitalize()
             new_medication = SHEET.add_worksheet(title=medication_name, rows='100', cols='9')
             new_medication.append_row(
-                ["Date", "Dose(mg)", "Intake per day", "First dose intake", "Second dose intake", "Third dose intake", "Efficacy(1-10)", "Side effects", "Personal observations"]
+                ["Date", "Dose(mg)", "Intake per day", "First dose", "Second dose", "Third dose", "Efficacy(1-10)", "Side effects", "Personal observations"]
             )
             print(Fore.GREEN + f"New medication '{medication_name}' successfully created\n")
             return new_medication
@@ -137,11 +137,11 @@ def validate_user_observation():
     to prevent user from writing more than 35 words max. if limit is reached, shows error in logging
     """
     while True:
-        observation_log = input(Fore.YELLOW + "Describe in short, personal observations regarding your experience taking the medication (max 30 words): \n" + Fore.RESET)
+        observation_log = input(Fore.YELLOW + "Describe in short, personal observations regarding your experience taking the medication (max 20 words): \n" + Fore.RESET)
         isolate_words = observation_log.split()
         contains_words = any(word.isalpha() for word in isolate_words)
-        if len(isolate_words) > 30:
-            print(Fore.RED + "You have entered more than 30 words, please enter no more than 30 words\n")
+        if len(isolate_words) > 20:
+            print(Fore.RED + "You have entered more than 30 words, please enter no more than 20 words\n")
         elif not contains_words:
             print(Fore.RED + f"You have entered '{observation_log}', please use words, not only numbers\n")
         else:
@@ -179,6 +179,21 @@ def new_log(SHEET):
     except gspread.exceptions.WorksheetNotFound:
         print(Fore.RED + f"Medication with a name'{choose_medication}'does not exist\n")
         add_medication(SHEET) # If medication does not exist you can opt to create new one
+
+
+def view_medication_logs():
+    """
+    Function that retrieves and shows the user their chosen medication logs
+    """
+
+    try:
+        find_medication = input("Enter the name of medication which logs you want to view: \n").capitalize()
+        medication_info = SHEET.worksheet(find_medication)
+        logs = medication_info.get_all_values()
+        print(tabulate(logs, headers="firstrow", tablefmt="grid", stralign="center"))
+
+    except gspread.exceptions.WorksheetNotFound:
+        print(Fore.RED + f"Medication with a name '{find_medication}' does not exist\n")
 
 def exit_or_menu():
     """
@@ -218,6 +233,9 @@ def main():
             exit_or_menu()
         elif choice == "2":
             new_log(SHEET)
+            exit_or_menu()
+        elif choice == "3":
+            view_medication_logs()
             exit_or_menu()
 
 main()    
