@@ -187,10 +187,11 @@ def view_medication_logs():
     """
 
     try:
-        find_medication = input("Enter the name of medication which logs you want to view: \n").capitalize()
+        find_medication = input(Fore.YELLOW + "Enter the name of medication which logs you want to view: \n" + Fore.RESET).capitalize()
         medication_info = SHEET.worksheet(find_medication)
+        print(Fore.CYAN + f"You chose to view log history for '{find_medication}': \n")
         logs = medication_info.get_all_values()
-        print(tabulate(logs, headers="firstrow", tablefmt="grid", stralign="center"))
+        print(tabulate(logs, headers="firstrow", tablefmt="fancy_grid", maxcolwidths=[20,5,18,8,8,8,5,8,30], stralign="center"))
 
     except gspread.exceptions.WorksheetNotFound:
         print(Fore.RED + f"Medication with a name '{find_medication}' does not exist\n")
