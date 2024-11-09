@@ -41,14 +41,21 @@ def add_medication(SHEET):
     while True:
         try:
             medication_name = input(Fore.YELLOW + "Enter the new medication name: \n" + Fore.RESET).capitalize()
-            new_medication = SHEET.add_worksheet(title=medication_name, rows='100', cols='9')
-            new_medication.append_row(
-                ["Date", "Dose(mg)", "Intak(day)", "Dose 1", "Dose 2", "Dose 3", "Efficacy(0-10)", "Side effects", "Observations"]
-            )
-            print(Fore.GREEN + f"New medication '{medication_name}' successfully created\n")
-            return new_medication
+            if medication_name.isdigit():
+                print("Your input cannot be a number, please enter the name of your new medication: \n")
+            elif medication_name.strip() == "":
+                print("Your input cannot be empty, please enter the name of your new medication: \n")
+            else:
+                new_medication = SHEET.add_worksheet(title=medication_name, rows='100', cols='9')
+                new_medication.append_row(
+                    ["Date", "Dose(mg)", "Intak(day)", "Dose 1", "Dose 2", "Dose 3", "Efficacy(0-10)", "Side effects", "Observations"]
+                )
+                print(Fore.GREEN + f"New medication '{medication_name}' successfully created\n")
+                new_log_prompt()
+                break
+            
         except Exception as e:
-            print(Fore.RED + f"Could not create a worksheet: {e}\n")
+            print(Fore.RED + f"Could not create a new medication file: A sheet with the name '{medication_name}' already exists. Please enter another name.\n")
 
 def validate_date(worksheet):
     """
@@ -74,7 +81,7 @@ def validate_dose():
             else:
                 return dose_log
         except Exception as e:
-            print(Fore.RED + f"Medication dose cannot be a word or a letter, please enter a number in mg:\n")
+            print(Fore.RED + f"Medication dose cannot be a word or a letter, please enter a number in mg:{e}\n")
 
 def validate_intake():
     """
@@ -111,7 +118,7 @@ def validate_efficacy():
     while True:
 
         try:
-            efficacy_log = int(input(Fore.YELLOW + "How effective did you find the medication (0-10)?: \n" + Fore.RESET))
+            efficacy_log = int(input(Fore.YELLOW + "How effective did you find the medication from 0 to 10 (0 is no rating, 1 being very ineffective and 10 being very effective)?: \n" + Fore.RESET))
             if efficacy_log <= int(10):
                 return efficacy_log
             elif efficacy_log > int(10):
@@ -136,14 +143,14 @@ def validate_side_effects():
 def validate_user_observation():
     """
     Function to handle users personal str input describing effects and observations;
-    to prevent user from writing more than 35 words max. if limit is reached, shows error in logging
+    to prevent user from writing more than 20 words max. if limit is reached, shows error in logging
     """
     while True:
         observation_log = input(Fore.YELLOW + "Describe in short, personal observations regarding your experience taking the medication (max 20 words): \n" + Fore.RESET)
         isolate_words = observation_log.split()
         contains_words = any(word.isalpha() for word in isolate_words)
         if len(isolate_words) > 20:
-            print(Fore.RED + "You have entered more than 30 words, please enter no more than 20 words\n")
+            print(Fore.RED + "You have entered more than 20 words, please enter no more than 20 words\n")
         elif not contains_words:
             print(Fore.RED + f"You have entered '{observation_log}', please use words, not only numbers\n")
         else:
@@ -179,8 +186,48 @@ def new_log(SHEET):
         print(Fore.GREEN + "Creating a log for today.....\n")
 
     except gspread.exceptions.WorksheetNotFound:
-        print(Fore.RED + f"Medication with a name'{choose_medication}'does not exist\n")
-        add_medication(SHEET) # If medication does not exist you can opt to create new one
+        print(Fore.RED + f"Medication with a name'{choose_medication}'does not exist. \n")
+        new_medication_prompt()
+        return
+        
+def new_medication_prompt():
+    """
+    A function that prompts a user to add a new medication if the 
+    data for input medication is not found
+    """
+
+    while True:
+
+        all_medication_names = [worksheet.title for worksheet in SHEET.worksheets()]
+        print(tabulate(None, all_medication_names, tablefmt="orgtbl"))
+
+        add_medication_prompt = input("Would you like to add new medication? Type (yes or no): \n").lower()
+        if "yes" in add_medication_prompt:
+            add_medication(SHEET)
+        elif "no" in add_medication_prompt:
+            exit_or_menu()
+            break
+        else:
+            print("The input is invalid, please type (yes or no)")
+
+def new_log_prompt():
+    """
+    A function that prompts a user to make a log for today 
+    when the user creates a new medication or views the list of logs
+    """
+    while True:
+        all_medication_names = [worksheet.title for worksheet in SHEET.worksheets()]
+        print(Fore.CYAN + "Here is a list of all your medications: \n")
+        print(tabulate(None, all_medication_names, tablefmt="orgtbl"))
+            
+        create_log = input(Fore.YELLOW + "Would you like to create a log for today? Type (yes/no): \n" + Fore.RESET).lower()
+        if "yes" in create_log:
+            new_log(SHEET)
+        elif "no" in create_log:
+            exit_or_menu()
+            break
+        else:
+            print("The input is invalid, please type (yes or no)")
 
 
 def view_medication_logs():
@@ -221,8 +268,7 @@ def view_medication_logs():
 
     except gspread.exceptions.WorksheetNotFound:
             print(Fore.RED + f"Medication with a name '{find_medication}' does not exist. Here are all the medication names : \n")
-            all_medication_names = [worksheet.title for worksheet in SHEET.worksheets()]
-            print(tabulate(None, all_medication_names, tablefmt="orgtbl"))
+            new_medication_prompt()
 
 def exit_or_menu():
     """
@@ -244,7 +290,6 @@ def exit_or_menu():
             sys.exit()
         else:
             print(Fore.RED + "Invalid choice. Please enter 1 to return to Menu or 2 to Exit.")
-            continue
         
 def main():
     """
@@ -259,10 +304,8 @@ def main():
         choice = input(Fore.CYAN + "Make your choice (1 - 5) and press 'Enter': \n" + Fore.RESET)
         if choice == "1":
             add_medication(SHEET)
-            exit_or_menu()
         elif choice == "2":
             new_log(SHEET)
-            exit_or_menu()
         elif choice == "3":
             view_medication_logs()
             exit_or_menu()
