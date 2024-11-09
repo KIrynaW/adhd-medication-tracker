@@ -26,12 +26,13 @@ SHEET = GSPREAD_CLIENT.open("adhd_medication_tracker")
 def menu():
 
     print(Fore.CYAN + "**** Main Menu ****\n")
+    print("*" * 19)
     print(" 1. Add new medication")
     print(" 2. Create a new log")
     print(" 3. View medication logs")
     print(" 4. Evaluate efficacy")
     print(" 5. Exit\n")
-    print("*" * 50)
+    print("*" * 19)
 
 def add_medication(SHEET):
     """
