@@ -7,6 +7,7 @@ from colorama import init, Fore, Style
 from tabulate import tabulate
 import pyfiglet
 import time
+import textwrap
 
 # Initialize colorama library
 init(autoreset=True)
@@ -183,18 +184,44 @@ def new_log(SHEET):
 
 def view_medication_logs():
     """
-    Function that retrieves and shows the user their chosen medication logs
+    Function that retrieves and shows the user their chosen medication log date
     """
-
+    
     try:
         find_medication = input(Fore.YELLOW + "Enter the name of medication which logs you want to view: \n" + Fore.RESET).capitalize()
-        medication_info = SHEET.worksheet(find_medication)
+        log_data = SHEET.worksheet(find_medication)
         print(Fore.CYAN + f"You chose to view log history for '{find_medication}': \n")
-        logs = medication_info.get_all_values()
-        print(tabulate(logs, tablefmt="fancy_grid", maxcolwidths=[10,4,6,4,4,4,8,7,14], stralign="center"))
+
+        while True:    
+            
+            try:
+                date_input = input(Fore.YELLOW + "Enter the date of the log you would like to view (DD/MM/YYYY): \n" + Fore.RESET)
+                entered_date = datetime.strptime(date_input, "%d/%m/%Y").date()
+
+                log_values = log_data.get_all_values()
+                headers = ["Date", "Dose  (mg)", "Intake (day)", "Dose  1", "Dose  2", "Dose  3", "Impact score  (0-11)", "Side Effect", "Notes"]
+                wrap_header = [textwrap.fill(header, width=6) for header in headers]
+                sift_data = []
+                date_index = 0
+
+                for row in log_values[1:]:
+                    date_row = datetime.strptime(row[date_index], "%d/%m/%Y").date()
+                    if date_row == entered_date:
+                        sift_data.append(row)
+                        continue
+
+                if not sift_data:
+                    print(f"No matching data found for {entered_date}")
+                else:
+                    print(tabulate(sift_data, wrap_header, tablefmt="simple_grid", maxcolwidths=[10,4,6,4,4,4,8,7,13], stralign="center"))
+                    return
+            except Exception as e:
+                print (f"{e}")
 
     except gspread.exceptions.WorksheetNotFound:
-        print(Fore.RED + f"Medication with a name '{find_medication}' does not exist\n")
+            print(Fore.RED + f"Medication with a name '{find_medication}' does not exist. Here are all the medication names : \n")
+            all_medication_names = [worksheet.title for worksheet in SHEET.worksheets()]
+            print(tabulate(None, all_medication_names, tablefmt="orgtbl"))
 
 def exit_or_menu():
     """
