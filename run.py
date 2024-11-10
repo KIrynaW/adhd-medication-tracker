@@ -432,102 +432,124 @@ def calculate_medication_statistics():
     Pull data from Google Sheets and calculate missed days, 
     side effects, and average efficacy
     """
-    while True:
+    
 
-        try:
-            search_medication = input("Enter the name of medication you would like to evaluate: \n").capitalize()
-            evaluation_data = SHEET.worksheet(search_medication)
-            print(Fore.CYAN + f"You chose to view log history for '{search_medication}': \n")
+    try:
+        search_medication = input(Fore.YELLOW + "Enter the name of medication you would like to evaluate: \n" + Fore.RESET).capitalize()
+        evaluation_data = SHEET.worksheet(search_medication)
 
+        medication_data = evaluation_data.get_all_values()
+        headers = medication_data[0]
+        rows = medication_data[1:]
 
-            medication_data = evaluation_data.get_all_values()
-            headers = medication_data[0]
-            rows = medication_data[1:]
+        #initialise counting
+        days_total = 0
+        missed_dose_one = 0
+        missed_dose_two = 0
+        missed_dose_three = 0
+        missed_doses_days = 0
+        side_effect_days = 0
+        efficacy_total = 0
+        efficacy_counted = 0
 
-            #initialise counting
-            days_total = 0
-            missed_dose_one = 0
-            missed_dose_two = 0
-            missed_dose_three = 0
-            missed_doses_days = 0
-            side_effect_days = 0
-            efficacy_total = 0
-            efficacy_counted = 0
+        for row in rows:
+            date = row[headers.index("Date")]
+            dose_one = row[headers.index("Dose 1")].lower()
+            dose_two = row[headers.index("Dose 2")].lower()
+            dose_three = row[headers.index("Dose 3")].lower()
+            efficacy = row[headers.index("Efficacy(0-10)")]
+            side_effects = row[headers.index("Side effects")].lower()
 
-            for row in rows:
-                date = row[headers.index("Date")]
-                dose_one = row[headers.index("Dose 1")].lower()
-                dose_two = row[headers.index("Dose 2")].lower()
-                dose_three = row[headers.index("Dose 3")].lower()
-                efficacy = row[headers.index("Efficacy(0-10)")]
-                side_effects = row[headers.index("Side effects")].lower()
-                
-                if dose_one == "no":
-                    missed_dose_one += 1
+            if "2024" in date:
+                days_total += 1
+            
+            if dose_one == "no":
+                missed_dose_one += 1
 
-                if dose_two == "no":
-                    missed_dose_two += 1
+            if dose_two == "no":
+                missed_dose_two += 1
 
-                if dose_three == "no":
-                    missed_dose_three += 1
+            if dose_three == "no":
+                missed_dose_three += 1
 
-                if dose_one == "no" or dose_two == "no" or dose_three == "no":
-                    missed_doses_days += 1
-                
-                if side_effects in ["yes", "no"]:
-                    days_total += 1
+            if dose_one == "no" or dose_two == "no" or dose_three == "no":
+                missed_doses_days += 1
 
-                if side_effects == "yes":
-                    side_effect_days += 1
+            if side_effects == "yes":
+                side_effect_days += 1
 
-                # total efficacy calculation
-                try:
-                    efficacy_value = int(efficacy)
-                    if 0 <= efficacy_value <= 10: # Efficacy range
-                        efficacy_total += efficacy_value
-                        efficacy_counted += 1
-                except ValueError:
-                    continue # if not valid number, ignore
+            # total efficacy calculation
+            try:
+                efficacy_value = int(efficacy)
+                if 0 <= efficacy_value <= 10: # Efficacy range
+                    efficacy_total += efficacy_value
+                    efficacy_counted += 1
+            except ValueError:
+                continue # if not valid number, ignore
 
-            # Avarage efficacy equation
-            efficacy_avarage = efficacy_total/efficacy_counted if efficacy_counted > 0 else 0
+        # Avarage efficacy equation
+        efficacy_avarage = efficacy_total/efficacy_counted if efficacy_counted > 0 else 0
 
-            results_header = [
-                "Results",
-                "Days",
-                "Missed Doses 1",
-                "Missed Doses 2",
-                "Missed Doses 3",
-                "Incomplete Intake Days",
-                "Avarage Efficiacy",
-                "Side Effects Days"
-                ]
-
-            results_list = [
-                datetime.now().strftime("%d/%m/%Y"),
-                days_total,
-                missed_dose_one,
-                missed_dose_two,
-                missed_dose_three,
-                missed_doses_days,
-                side_effect_days,
-                efficacy_avarage,
+        results_header = [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "Results",
+            "Days",
+            "Missed Doses 1",
+            "Missed Doses 2",
+            "Missed Doses 3",
+            "Incomplete Intake Days",
+            "Avarage Efficiacy",
+            "Side Effects Days"
             ]
 
-            evaluation_data.append_row(headers)
-            evaluation_data.append_row(results_list)
-            #print(tabulate(results_list,results_header, tablefmt="simple_grid"))
-        
-        except gspread.exceptions.WorksheetNotFound:
-            print(
-                Fore.RED
-                + f"Medication with a name '{search_medication}' does not exist. Here are all the medication names : \n"
-            )
-            new_medication_prompt()
+        results_list = [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            datetime.now().strftime("%d/%m/%Y"),
+            days_total,
+            missed_dose_one,
+            missed_dose_two,
+            missed_dose_three,
+            missed_doses_days,
+            efficacy_avarage,
+            side_effect_days,
+            
+        ]
 
+        evaluation_data.append_row(results_header)
+        evaluation_data.append_row(results_list)
+        print(Fore.CYAN + f"Showing statistics for '{search_medication}': \n")
+        print("Days evaluated:", Fore.MAGENTA + f"{days_total}")
+        print(f"Missed first doses:", Fore.MAGENTA + f" {missed_dose_one}")
+        print(f"Missed second doses:", Fore.MAGENTA + f" {missed_dose_two}")
+        print(f"Missed third doses:", Fore.MAGENTA + f" {missed_dose_three}")
+        print(f"Incoplete intake days:", Fore.MAGENTA + f" {missed_doses_days}")
+        print(f"Avarage efficacy:", Fore.MAGENTA + f" {efficacy_avarage}")
+        print(f"Days with side effects:", Fore.MAGENTA + f" {side_effect_days} \n")
+        print(Fore.GREEN + f"Saving results....\n")
 
-
-
+        exit_or_menu()
+        return
+    
+    except gspread.exceptions.WorksheetNotFound:
+        print(
+            Fore.RED
+            + f"Medication with a name '{search_medication}' does not exist. Here are all the medication names : \n"
+        )
+        new_medication_prompt()
 
 
 def exit_or_menu():
@@ -581,6 +603,10 @@ def main():
             view_medication_logs()
         elif choice == "4":
             calculate_medication_statistics()
-
+        elif choice == "5":
+            print("You chose to exit the program...Shutting down...Goodbye...")
+            break
+        else:
+            print(Fore.RED + "Invalid choice, please enter (1-5): \n")
 
 main()
