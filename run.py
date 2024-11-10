@@ -180,7 +180,7 @@ def validate_efficacy():
             efficacy_log = int(
                 input(
                     Fore.YELLOW
-                    + "How effective did you find the medication from 0 to 10 (0 is no rating, 1 being very ineffective and 10 being very effective)?: \n"
+                    + "How effective did you find the medication from (1 to 10), enter 0 if missed doses?: \n"
                     + Fore.RESET
                 )
             )
@@ -427,6 +427,108 @@ def view_medication_logs():
         )
         new_medication_prompt()
 
+def calculate_medication_statistics():
+    """
+    Pull data from Google Sheets and calculate missed days, 
+    side effects, and average efficacy
+    """
+    while True:
+
+        try:
+            search_medication = input("Enter the name of medication you would like to evaluate: \n").capitalize()
+            evaluation_data = SHEET.worksheet(search_medication)
+            print(Fore.CYAN + f"You chose to view log history for '{search_medication}': \n")
+
+
+            medication_data = evaluation_data.get_all_values()
+            headers = medication_data[0]
+            rows = medication_data[1:]
+
+            #initialise counting
+            days_total = 0
+            missed_dose_one = 0
+            missed_dose_two = 0
+            missed_dose_three = 0
+            missed_doses_days = 0
+            side_effect_days = 0
+            efficacy_total = 0
+            efficacy_counted = 0
+
+            for row in rows:
+                date = row[headers.index("Date")]
+                dose_one = row[headers.index("Dose 1")].lower()
+                dose_two = row[headers.index("Dose 2")].lower()
+                dose_three = row[headers.index("Dose 3")].lower()
+                efficacy = row[headers.index("Efficacy(0-10)")]
+                side_effects = row[headers.index("Side effects")].lower()
+                
+                if dose_one == "no":
+                    missed_dose_one += 1
+
+                if dose_two == "no":
+                    missed_dose_two += 1
+
+                if dose_three == "no":
+                    missed_dose_three += 1
+
+                if dose_one == "no" or dose_two == "no" or dose_three == "no":
+                    missed_doses_days += 1
+                
+                if side_effects in ["yes", "no"]:
+                    days_total += 1
+
+                if side_effects == "yes":
+                    side_effect_days += 1
+
+                # total efficacy calculation
+                try:
+                    efficacy_value = int(efficacy)
+                    if 0 <= efficacy_value <= 10: # Efficacy range
+                        efficacy_total += efficacy_value
+                        efficacy_counted += 1
+                except ValueError:
+                    continue # if not valid number, ignore
+
+            # Avarage efficacy equation
+            efficacy_avarage = efficacy_total/efficacy_counted if efficacy_counted > 0 else 0
+
+            results_header = [
+                "Results",
+                "Days",
+                "Missed Doses 1",
+                "Missed Doses 2",
+                "Missed Doses 3",
+                "Incomplete Intake Days",
+                "Avarage Efficiacy",
+                "Side Effects Days"
+                ]
+
+            results_list = [
+                datetime.now().strftime("%d/%m/%Y"),
+                days_total,
+                missed_dose_one,
+                missed_dose_two,
+                missed_dose_three,
+                missed_doses_days,
+                side_effect_days,
+                efficacy_avarage,
+            ]
+
+            evaluation_data.append_row(headers)
+            evaluation_data.append_row(results_list)
+            #print(tabulate(results_list,results_header, tablefmt="simple_grid"))
+        
+        except gspread.exceptions.WorksheetNotFound:
+            print(
+                Fore.RED
+                + f"Medication with a name '{search_medication}' does not exist. Here are all the medication names : \n"
+            )
+            new_medication_prompt()
+
+
+
+
+
 
 def exit_or_menu():
     """
@@ -477,6 +579,8 @@ def main():
             new_log(SHEET)
         elif choice == "3":
             view_medication_logs()
+        elif choice == "4":
+            calculate_medication_statistics()
 
 
 main()
