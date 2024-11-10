@@ -65,7 +65,8 @@ def validate_date(worksheet):
     date_log = datetime.today().date().strftime("%d/%m/%Y")
     if worksheet.findall(date_log):
         print(Fore.RED + "Today's log already exists, skipping...\n")
-        return False
+        new_log_prompt()
+        return
     else:
         return date_log
 
@@ -90,11 +91,16 @@ def validate_intake():
     the intake is adjusted
     """
     while True:
-        frequency_log = int(input(Fore.YELLOW + "What is the frequency of the medication intake per day (1-3): \n" + Fore.RESET))
-        if frequency_log > 3:
-            print(Fore.RED + "The frequency is invalid, try again\n")
-        else:
-            break
+        try:
+            frequency_log = int(input(Fore.YELLOW + "What is the frequency of the medication intake per day (1-3): \n" + Fore.RESET))
+            if frequency_log > 3:
+                print(Fore.RED + "The frequency is invalid, try again\n")
+            elif frequency_log == 0:
+                print(Fore.RED + "The frequency is invalid, try again\n")
+            else:
+                break
+        except ValueError:
+            print(f"The frequency input cannot be empty, please try again\n")
     intake_log = ['None', 'None', 'None']
     for i in range(frequency_log):
         while True:
@@ -123,6 +129,7 @@ def validate_efficacy():
                 return efficacy_log
             elif efficacy_log > int(10):
                 print(Fore.RED + f"{efficacy_log} is above the rating range, please enter (0-10)\n")
+            
         except Exception as e:
                 print(Fore.RED + f"Your input is invalid, please enter a number rating (0-10)\n")
 
@@ -152,7 +159,7 @@ def validate_user_observation():
         if len(isolate_words) > 20:
             print(Fore.RED + "You have entered more than 20 words, please enter no more than 20 words\n")
         elif not contains_words:
-            print(Fore.RED + f"You have entered '{observation_log}', please use words, not only numbers\n")
+            print(Fore.RED + f"You have entered '{observation_log}', please use words.\n")
         else:
             return observation_log
 
@@ -165,31 +172,37 @@ def new_log(SHEET):
     The function checks for existance of worksheet selected by the user,
     and offers the user to create new medication worksheet if it does not exist
     """
-    choose_medication = input(Fore.YELLOW + "Enter medication name you want to log: \n" + Fore.RESET).capitalize()
-    try:
-        # Add current date autofill
-        medication_worksheet = SHEET.worksheet(choose_medication)
-        if not validate_date(medication_worksheet):
+    while True:
+
+        try:
+            choose_medication = input(Fore.YELLOW + "Enter medication name you want to log: \n" + Fore.RESET).capitalize()
+            if choose_medication.strip() == "":
+                    print("Your input cannot be empty, please enter medication name you want to log: \n")
+            else:
+                # Add current date autofill
+                medication_worksheet = SHEET.worksheet(choose_medication)
+                if not validate_date(medication_worksheet):
+                    return
+                else:
+                    date = validate_date(medication_worksheet)
+                    dose = validate_dose()
+                    frequency_log, intake_log = validate_intake()
+                    efficacy = validate_efficacy()
+                    side_effects = validate_side_effects()
+                    user_observation = validate_user_observation()
+
+                    medication_worksheet.append_row([
+                        date, dose, frequency_log, intake_log[0], intake_log[1], intake_log[2], efficacy, side_effects, user_observation
+                        ])
+                    print(Fore.GREEN + "Creating a log for today.....\n")
+                    exit_or_menu()
+                    break
+
+        except gspread.exceptions.WorksheetNotFound:
+            print(Fore.RED + f"Medication with a name'{choose_medication}'does not exist. \n")
+            new_medication_prompt()
             return
-        else:
-            date = validate_date(medication_worksheet)
-            dose = validate_dose()
-            frequency_log, intake_log = validate_intake()
-            efficacy = validate_efficacy()
-            side_effects = validate_side_effects()
-            user_observation = validate_user_observation()
-
-            medication_worksheet.append_row([
-                date, dose, frequency_log, intake_log[0], intake_log[1], intake_log[2], efficacy, side_effects, user_observation
-                ])
-
-        print(Fore.GREEN + "Creating a log for today.....\n")
-
-    except gspread.exceptions.WorksheetNotFound:
-        print(Fore.RED + f"Medication with a name'{choose_medication}'does not exist. \n")
-        new_medication_prompt()
-        return
-        
+            
 def new_medication_prompt():
     """
     A function that prompts a user to add a new medication if the 
@@ -308,6 +321,6 @@ def main():
             new_log(SHEET)
         elif choice == "3":
             view_medication_logs()
-            exit_or_menu()
+
 
 main()    
