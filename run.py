@@ -42,9 +42,9 @@ def add_medication(SHEET):
         try:
             medication_name = input(Fore.YELLOW + "Enter the new medication name: \n" + Fore.RESET).capitalize()
             if medication_name.isdigit():
-                print("Your input cannot be a number, please enter the name of your new medication: \n")
+                print(Fore.RED + "Your input cannot be a number, please enter the name of your new medication: \n")
             elif medication_name.strip() == "":
-                print("Your input cannot be empty, please enter the name of your new medication: \n")
+                print(Fore.RED + "Your input cannot be empty, please enter the name of your new medication: \n")
             else:
                 new_medication = SHEET.add_worksheet(title=medication_name, rows='100', cols='9')
                 new_medication.append_row(
@@ -214,14 +214,14 @@ def new_medication_prompt():
         all_medication_names = [worksheet.title for worksheet in SHEET.worksheets()]
         print(tabulate(None, all_medication_names, tablefmt="orgtbl"))
 
-        add_medication_prompt = input("Would you like to add new medication? Type (yes or no): \n").lower()
+        add_medication_prompt = input(Fore.YELLOW + "Would you like to add new medication? Type (yes or no): \n" + Fore.RESET).lower()
         if "yes" in add_medication_prompt:
             add_medication(SHEET)
         elif "no" in add_medication_prompt:
             exit_or_menu()
             break
         else:
-            print("The input is invalid, please type (yes or no)")
+            print(Fore.RED + "The input is invalid, please type (yes or no)")
 
 def new_log_prompt():
     """
@@ -258,23 +258,28 @@ def view_medication_logs():
             try:
                 date_input = input(Fore.YELLOW + "Enter the date of the log you would like to view (DD/MM/YYYY): \n" + Fore.RESET)
                 entered_date = datetime.strptime(date_input, "%d/%m/%Y").date()
-
                 log_values = log_data.get_all_values()
+                # Creating a logic to view all the dates
+                #date_list = [row[0] for row in log_values[1:]]
+                #for date in date_list:
+                    #print(date)
+
                 headers = ["Date", "Dose  (mg)", "Intake (day)", "Dose  1", "Dose  2", "Dose  3", "Impact score  (0-11)", "Side Effect", "Notes"]
                 wrap_header = [textwrap.fill(header, width=6) for header in headers]
                 sift_data = []
-                date_index = 0
 
                 for row in log_values[1:]:
-                    date_row = datetime.strptime(row[date_index], "%d/%m/%Y").date()
+                    date_row = datetime.strptime(row[0], "%d/%m/%Y").date()
                     if date_row == entered_date:
                         sift_data.append(row)
                         continue
 
                 if not sift_data:
-                    print(f"No matching data found for {entered_date}")
+                    print(Fore.RED + f"No matching data found for {entered_date}")
                 else:
                     print(tabulate(sift_data, wrap_header, tablefmt="simple_grid", maxcolwidths=[10,4,6,4,4,4,8,7,13], stralign="center"))
+                    # Space for future function to edit or delete the log
+                    exit_or_menu()
                     return
             except Exception as e:
                 print (f"{e}")
@@ -290,11 +295,11 @@ def exit_or_menu():
     
     while True:
 
-        print(" Press 1. to return to Menu:")
-        print(" Press 2. to Exit.\n")
+        print(" 1. Return to Main Menu:")
+        print(" 2. Exit.\n")
         select = input(Fore.CYAN + "Enter your choice (1 or 2): \n" + Fore.RESET)
         if select == "1":
-            print(Fore.GREEN + "Returning to Main Menu")
+            print(Fore.GREEN + "Returning to Main Menu....")
             time.sleep(1)
             return
         elif select == "2":
