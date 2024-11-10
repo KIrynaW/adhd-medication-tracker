@@ -346,6 +346,7 @@ def new_log_prompt():
         ).lower()
         if "yes" in create_log:
             new_log(SHEET)
+            break
         elif "no" in create_log:
             exit_or_menu()
             break
@@ -491,14 +492,6 @@ def calculate_medication_statistics():
         efficacy_avarage = efficacy_total/efficacy_counted if efficacy_counted > 0 else 0
 
         results_header = [
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
             "Results",
             "Days",
             "Missed Doses 1",
@@ -511,14 +504,6 @@ def calculate_medication_statistics():
 
         results_list = [
             "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            datetime.now().strftime("%d/%m/%Y"),
             days_total,
             missed_dose_one,
             missed_dose_two,
