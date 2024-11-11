@@ -53,7 +53,17 @@ The ADHD symptoms can be managed with a combination of treatments:<br>
 *Behavioral Therapy:* - Behavioral interventions, including cognitive-behavioral therapy (CBT), can help individuals with ADHD develop coping strategies, improve executive function, and manage impulsive behaviors.<br>
 *Medications:* - Stimulant medications (such as methylphenidate and amphetamines) are the most commonly prescribed, as they help increase the neurotransmitters like dopamine and norepinephrine in the brain.(which are paramount to the normal functioning of the brain) Non-stimulant medications (like atomoxetine) can also be perscribed for those individuals who do not respond well to stimulants.
 
+With appropriate diagnosis and treatment, people with ADHD can lead successful and fulfilling lives, although managing the symptoms requires ongoing support and adjustments. 
+
 #### **Goals:**
+An ADHD medication tracker aims to help individuals with ADHD, their caregivers, and healthcare providers better manage and optimize medication treatment. 
+Some of the key aims are:
+- To help users track the medication changes and dose changes
+- To show users  and healthcare practicioners the history of missed doses.
+- Give users a place to track days with side effects and commenting on the experience in dedicated place.
+- Aid healthcare practitioners track how well the medication is working for the individual.
+- Encourage individuals with ADHD to take an active role in their treatment and decision-making.
+- Maintain a detailed history of medication use and treatment adjustments.
 
 #### **User Stories:** 
 |No.|Story   | 
