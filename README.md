@@ -98,8 +98,19 @@ Some of the key aims are:
 ### **Technologies Used** 
 ### **Code** 
 ### **Content** 
+The content and factual information on ADHD was taken from [Wikipedia article on ADHD](https://en.wikipedia.org/wiki/Attention_deficit_hyperactivity_disorder),  [Diagnostic and Statistical Manual of Mental Disorders (DSM-5)](https://repository.poltekkes-kaltim.ac.id/657/1/Diagnostic%20and%20statistical%20manual%20of%20mental%20disorders%20_%20DSM-5%20(%20PDFDrive.com%20).pdf) and [Mayo Clinic article on ADHD](https://www.mayoclinic.org/diseases-conditions/adult-adhd/symptoms-causes/syc-20350878) and paraphrased in own words.
+
+All the other content in the ADHD Medication Tracker was created based on developers own journey with ADHD and personal experience with diagnosis procedures, and through peronal learning and development on the topic.
+
 ### **Media** 
-### **Acknowledgements** 
+Background image:<br>
+[Photo from Pexels by cottonbro studio: assorted medicines](https://www.pexels.com/photo/flatlay-shot-of-assorted-medicines-5723612/
+)
+
+### **Acknowledgements**
+I would like to give special appreciation to my husband Chris Walsh for his support and extra guidance with this project. 
+- I also want to thank my mentor Daniel Hamilton, for giving great resources, guiding, teaching and supporting me through this project. 
+- Also would like to thank Code Institute for their dedication to their students, wonderful educational material and valuable resources.           
 
 
 
