@@ -124,10 +124,10 @@ def validate_dose():
                 )
             else:
                 return dose_log
-        except Exception as e:
+        except Exception:
             print(
                 Fore.RED
-                + f"Medication dose cannot be a word or a letter, please enter a number in mg:{e}\n"
+                + f"Medication dose cannot be a word or a letter, please enter a number in mg:\n"
             )
 
 
@@ -153,7 +153,8 @@ def validate_intake():
             else:
                 break
         except ValueError:
-            print(f"The frequency input cannot be empty, please try again\n")
+            print(Fore.RED
+                    + f"The frequency input is invalid, please try again\n")
     intake_log = ["None", "None", "None"]
     for i in range(frequency_log):
         while True:
@@ -200,7 +201,7 @@ def validate_efficacy():
                     + f"{efficacy_log} is above the rating range, please enter (0-10)\n"
                 )
 
-        except Exception as e:
+        except Exception:
             print(
                 Fore.RED
                 + f"Your input is invalid, please enter a number rating (0-10)\n"
@@ -376,7 +377,7 @@ def new_log_prompt():
             exit_or_menu()
             break
         else:
-            print("The input is invalid, please enter (yes or no)")
+            print(Fore.RED + "The input is invalid, please enter (yes or no)")
 
 
 def view_medication_logs():
