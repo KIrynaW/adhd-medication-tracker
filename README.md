@@ -14,16 +14,17 @@ This application is not only useful to those with ADHD, but also their caregiver
 
 ## Table of Contents: 
 1. [**Development Phase**](#development-phase) 
-    * [***User Experience***](#user-experience)
+    * [***About ADHD***](#about-adhd)
       * [*Goals*](#goals) 
       * [*User Stories*](#user-stories) 
 2. [**Implementation Phase**](#implementation-phase) 
-    * [***Current Features***](#current-features) 
+    * [***How to Use it***](#how-to-use-it) 
       * [*Menu*](#menu) 
       * [*Add Medication*](#add-medication) 
       * [*Create New Log*](#create-new-log) 
       * [*View Medication Logs*](#view-medication-logs)
       * [*Evaluate Medication Efficacy*](#evaluate-medication-efficacy)
+    * [***Data Modeling***]
     * [***Possible Future Features***](#possible-future-features) 
 3. [**Testing Phase**](#testing-phase) 
 4. [**Deployment**](#deployment) 
@@ -38,24 +39,29 @@ This application is not only useful to those with ADHD, but also their caregiver
 ***
 
 ## **Development Phase:** 
-
-### **User Experience** 
-***The Users :***   
-***The Purpose of the Application :*** 
+### **About ADHD:** 
 
 #### **Goals:**
-***User Goal:*** 
-***Site Owner Goal :*** 
 
 #### **User Stories:** 
+|No.|Story   | 
+  |-  |--------| 
+  |1  |**As a person with ADHD**, <br> I want to be able to created new medication files to which i can log daily logs and be encouraged to stay consistent  <br><br> **I know I can do it when I can open the application and be able to add new medication and new daily logs with ease, without an option of backdating the logs.**|
+  |2  |**As a person with ADHD**, <br> I want to see a daily log of my medication usage so that I can understand my medication patterns. <br><br> **I know I can do it when I can input the date of the log that I made and see all the details of the log in an ordered list.**| 
+  |3  |**As a person with ADHD**, <br> I want to be able to record my daily dose intake, missed doses,the medication effectiness, side effect presence and comment on general experience <br><br> **I know I can do it if there is an easy and clearn input direction .**| 
+  |4  |**As a psychiatrist**, <br> I want to track the effectiveness of different medications over time so I can optimize their treatment plan<br><br> **.**| 
+  |5  |**As a psychiatrist**, <br> I want to view my patients' medication adherence data, so I can evaluate their progress and treatment effectiveness. <br><br> **.**| 
+  
 
 ## **Implementation Phase:** 
-### **Current Features** 
+### **How to Use it:** 
 #### **Menu** 
 #### **Add Medication**
 #### **Create New Log**
 #### **View Medication Logs**
 #### **Evaluate Medication Efficacy**
+
+### **Data Modeling:**
 
 ### **Possible Future Features** 
 
