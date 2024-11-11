@@ -97,6 +97,18 @@ Some of the key aims are:
 ### **Python Libraries Used** 
 ### **Technologies Used** 
 ### **Code** 
+The structure for the project was loosely based on the [Walkthrough project "Love Sandwiches"](), and used as a guideline only.
+
+All the code is original and was developed through guidelies from:
+- [Code Institute program](https://codeinstitute.net/ie/), especially on deployment, libraries and Using OAuth2 Authentication with Google APIs. 
+- [W3 School on Python](https://www.w3schools.com/python/default.asp). 
+- The following were consulted in the code creation from "Python Documentations":
+  - [Python Exception handling](https://docs.python.org/3/tutorial/errors.html)
+  - [Python Functions and Exception Handling](https://docs.python.org/3/tutorial/controlflow.html#defining-functions)
+  - [Datetime Handling](https://docs.python.org/3/library/datetime.html)
+
+Also through dynamic learning by reading solutions to problems of other budding developers on [Stack Overflow](https://stackoverflow.com/)
+
 ### **Content** 
 The content and factual information on ADHD was taken from [Wikipedia article on ADHD](https://en.wikipedia.org/wiki/Attention_deficit_hyperactivity_disorder),  [Diagnostic and Statistical Manual of Mental Disorders (DSM-5)](https://repository.poltekkes-kaltim.ac.id/657/1/Diagnostic%20and%20statistical%20manual%20of%20mental%20disorders%20_%20DSM-5%20(%20PDFDrive.com%20).pdf) and [Mayo Clinic article on ADHD](https://www.mayoclinic.org/diseases-conditions/adult-adhd/symptoms-causes/syc-20350878) and paraphrased in own words.
 
