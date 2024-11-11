@@ -42,6 +42,10 @@ def add_medication(SHEET):
     """
     while True:
         try:
+            all_medication_names = [worksheet.title for worksheet in SHEET.worksheets() if not worksheet.title == 'Results']
+            print(Fore.CYAN + "All current medications:\n")
+            print(tabulate(None, all_medication_names, tablefmt="orgtbl"))
+            
             medication_name = input(
                 Fore.YELLOW + "Enter the new medication name: \n" + Fore.RESET
             ).capitalize()
@@ -224,7 +228,7 @@ def validate_side_effects():
 def validate_user_observation():
     """
     Function to handle users personal str input describing effects and observations;
-    to prevent user from writing more than 20 words max. if limit is reached, shows error in logging
+    to prevent user from writing more than 10 words max. if limit is reached, shows error in logging
     """
     while True:
         observation_log = input(
@@ -234,10 +238,10 @@ def validate_user_observation():
         )
         isolate_words = observation_log.split()
         contains_words = any(word.isalpha() for word in isolate_words)
-        if len(isolate_words) > 20:
+        if len(isolate_words) > 10:
             print(
                 Fore.RED
-                + "You have entered more than 20 words, please enter no more than 20 words\n"
+                + "You have entered more than 10 words, please enter no more than 10 words\n"
             )
         elif not contains_words:
             print(
@@ -258,6 +262,10 @@ def new_log(SHEET):
     while True:
 
         try:
+            all_medication_names = [worksheet.title for worksheet in SHEET.worksheets() if not worksheet.title == 'Results']
+            print(Fore.CYAN + "All current medications:")
+            print(tabulate(None, all_medication_names, tablefmt="orgtbl"))
+
             choose_medication = input(
                 Fore.YELLOW + "Enter medication name you want to log: \n" + Fore.RESET
             ).capitalize()
@@ -341,7 +349,7 @@ def new_log_prompt():
 
         create_log = input(
             Fore.YELLOW
-            + "Would you like to create a log for today? Type (yes/no): \n"
+            + "Would you like to create a log for today? Enter (yes/no): \n"
             + Fore.RESET
         ).lower()
         if "yes" in create_log:
@@ -351,7 +359,7 @@ def new_log_prompt():
             exit_or_menu()
             break
         else:
-            print("The input is invalid, please type (yes or no)")
+            print("The input is invalid, please enter (yes or no)")
 
 
 def view_medication_logs():
@@ -378,23 +386,19 @@ def view_medication_logs():
                 )
                 entered_date = datetime.strptime(date_input, "%d/%m/%Y").date()
                 log_values = log_data.get_all_values()
-                # Creating a logic to view all the dates
-                # date_list = [row[0] for row in log_values[1:]]
-                # for date in date_list:
-                # print(date)
 
                 headers = [
                     "Date",
-                    "Dose  (mg)",
-                    "Intake (day)",
-                    "Dose  1",
-                    "Dose  2",
-                    "Dose  3",
-                    "Impact score  (0-11)",
+                    "Dose",
+                    "Intake",
+                    "Dose1",
+                    "Dose2",
+                    "Dose3",
+                    "Impact",
                     "Side Effect",
-                    "Notes",
+                    "Note",
                 ]
-                wrap_header = [textwrap.fill(header, width=6) for header in headers]
+                wrap_header = [textwrap.fill(header, width=4) for header in headers]
                 sift_data = []
 
                 for row in log_values[1:]:
@@ -411,11 +415,10 @@ def view_medication_logs():
                             sift_data,
                             wrap_header,
                             tablefmt="simple_grid",
-                            maxcolwidths=[10, 4, 6, 4, 4, 4, 8, 7, 13],
+                            maxcolwidths=[6, 4, 4, 4, 4, 4, 4, 4, 10],
                             stralign="center",
                         )
                     )
-                    # Space for future function to edit or delete the log
                     exit_or_menu()
                     return
             except Exception as e:
@@ -575,7 +578,7 @@ def main():
         )
         results_sheet.append_row([
             "Medication",
-            "Days",
+            "Evaluated days",
             "Missed doses 1",
             "Missed doses 2",
             "Missed doses 3",
@@ -598,7 +601,7 @@ def main():
         elif choice == "4":
             calculate_medication_statistics()
         elif choice == "5":
-            print("You chose to exit the program...Shutting down...Goodbye...")
+            print(Fore.MAGENTA + "You chose to exit the program...Shutting down...Goodbye...")
             break
         else:
             print(Fore.RED + "Invalid choice, please enter (1-5): \n")
