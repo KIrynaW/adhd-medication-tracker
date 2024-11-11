@@ -1,5 +1,5 @@
 # Welcome to ADHD Medication Tracker
-This project is a terminal-based Python application that supports users diagnosed with ADHD, in their medication intake and adjustment journey. It allows the user to make logs for every day; creating a history database of dosage changes, marks dose intake, efficacy, presence of side effects and their own observation. Additionaly the application calculates missed doses, amount of days with side effects, and tracks the efficacy of the medication over time.
+This project is a terminal-based Python application that supports adult users diagnosed with ADHD, in their medication intake and adjustment journey. It allows the user to make logs for every day; creating a history database of dosage changes, marks dose intake, efficacy, presence of side effects and their own observation. Additionaly the application calculates missed doses, amount of days with side effects, and tracks the efficacy of the medication over time.
 This application is not only useful to those with ADHD, but also their caregivers, psychologist and psychiatrists that would aid in medication type and dose adjustment in ecery individual case.
 
 ***
@@ -40,6 +40,18 @@ This application is not only useful to those with ADHD, but also their caregiver
 
 ## **Development Phase:** 
 ### **About ADHD:** 
+ADHD (Attention-Deficit/Hyperactivity Disorder) is a neurodevelopmental disorder that affects how a person thinks, behaves, and processes information.
+It is characterized by executive dysfunction occasioning symptoms of inattention, hyperactivity, impulsivity and emotional dysregulation that are excessive and pervasive, impairing in multiple contexts of life. These symptoms can affect various aspects of life, including academic performance, work, relationships, and daily functioning.
+
+**Diagnosis**:<br>
+ADHD is usualy diagnosed in childhood, but there are many cases when some childrens symptoms can get overlooked. As a result these children learn to cope with the challanges of ADHD without detection. It is not until adulthood that these coping mechanisms start to fail and seeking diagnosis and symptom treatment is often a solution.
+ADHD is diagnosed through a comprehensive evaluation by a healthcare professional, typically  psychologists and psychiatrists; the evaluation includes clinical interviews with the patient and their family, observation of behaviour, questionnaires and rating scales completed by those who interact closely with the individual.
+
+**Treatment**:<br>
+The ADHD symptoms can be managed with a combination of treatments:<br>
+*Lifestyle Changes:*  - Regular physical activity, a balanced diet, a consistent sleep schedule, and minimizing distractions can also help individuals manage ADHD symptoms.<br>
+*Behavioral Therapy:* - Behavioral interventions, including cognitive-behavioral therapy (CBT), can help individuals with ADHD develop coping strategies, improve executive function, and manage impulsive behaviors.<br>
+*Medications:* - Stimulant medications (such as methylphenidate and amphetamines) are the most commonly prescribed, as they help increase the neurotransmitters like dopamine and norepinephrine in the brain.(which are paramount to the normal functioning of the brain) Non-stimulant medications (like atomoxetine) can also be perscribed for those individuals who do not respond well to stimulants.
 
 #### **Goals:**
 
@@ -49,8 +61,8 @@ This application is not only useful to those with ADHD, but also their caregiver
   |1  |**As a person with ADHD**, <br> I want to be able to created new medication files to which i can log daily logs and be encouraged to stay consistent  <br><br> **I know I can do it when I can open the application and be able to add new medication and new daily logs with ease, without an option of backdating the logs.**|
   |2  |**As a person with ADHD**, <br> I want to see a daily log of my medication usage so that I can understand my medication patterns. <br><br> **I know I can do it when I can input the date of the log that I made and see all the details of the log in an ordered list.**| 
   |3  |**As a person with ADHD**, <br> I want to be able to record my daily dose intake, missed doses,the medication effectiness, side effect presence and comment on general experience <br><br> **I know I can do it if there is an easy and clearn input direction .**| 
-  |4  |**As a psychiatrist**, <br> I want to track the effectiveness of different medications over time so I can optimize their treatment plan<br><br> **.**| 
-  |5  |**As a psychiatrist**, <br> I want to view my patients' medication adherence data, so I can evaluate their progress and treatment effectiveness. <br><br> **.**| 
+  |4  |**As a psychiatrist**, <br> I want to track the effectiveness of different medications over time so I can optimize their treatment plan<br><br> **I know I can do it when I can access my patients medications logs .**| 
+  |5  |**As a psychiatrist**, <br> I want to view my patients' medication adherence data, so I can evaluate their progress and treatment effectiveness. <br><br> **I know I can do it when I can access my patients medication efficacy, missed doses and side effect presence evaluations over sertain period of time.**| 
   
 
 ## **Implementation Phase:** 
