@@ -312,7 +312,7 @@ def new_medication_prompt():
 
     while True:
 
-        all_medication_names = [worksheet.title for worksheet in SHEET.worksheets()]
+        all_medication_names = [worksheet.title for worksheet in SHEET.worksheets() if not worksheet.title == 'Results']
         print(tabulate(None, all_medication_names, tablefmt="orgtbl"))
 
         add_medication_prompt = input(
@@ -335,7 +335,7 @@ def new_log_prompt():
     when the user creates a new medication or views the list of logs
     """
     while True:
-        all_medication_names = [worksheet.title for worksheet in SHEET.worksheets()]
+        all_medication_names = [worksheet.title for worksheet in SHEET.worksheets() if not worksheet.title == 'Results']
         print(Fore.CYAN + "Here is a list of all your medications: \n")
         print(tabulate(None, all_medication_names, tablefmt="orgtbl"))
 
@@ -488,41 +488,31 @@ def calculate_medication_statistics():
             except ValueError:
                 continue # if not valid number, ignore
 
-        # Avarage efficacy equation
-        efficacy_avarage = efficacy_total/efficacy_counted if efficacy_counted > 0 else 0
+        # Average efficacy equation
+        efficacy_average = efficacy_total/efficacy_counted if efficacy_counted > 0 else 0
 
-        results_header = [
-            "Results",
-            "Days",
-            "Missed Doses 1",
-            "Missed Doses 2",
-            "Missed Doses 3",
-            "Incomplete Intake Days",
-            "Avarage Efficiacy",
-            "Side Effects Days"
-            ]
 
         results_list = [
-            "",
+            search_medication,
             days_total,
             missed_dose_one,
             missed_dose_two,
             missed_dose_three,
             missed_doses_days,
-            efficacy_avarage,
+            efficacy_average,
             side_effect_days,
-            
         ]
 
-        evaluation_data.append_row(results_header)
-        evaluation_data.append_row(results_list)
+        results_sheet = SHEET.worksheet('Results')
+        results_sheet.append_row(results_list)
+
         print(Fore.CYAN + f"Showing statistics for '{search_medication}': \n")
         print("Days evaluated:", Fore.MAGENTA + f"{days_total}")
         print(f"Missed first doses:", Fore.MAGENTA + f" {missed_dose_one}")
         print(f"Missed second doses:", Fore.MAGENTA + f" {missed_dose_two}")
         print(f"Missed third doses:", Fore.MAGENTA + f" {missed_dose_three}")
         print(f"Incoplete intake days:", Fore.MAGENTA + f" {missed_doses_days}")
-        print(f"Avarage efficacy:", Fore.MAGENTA + f" {efficacy_avarage}")
+        print(f"Average efficacy:", Fore.MAGENTA + f" {efficacy_average}")
         print(f"Days with side effects:", Fore.MAGENTA + f" {side_effect_days} \n")
         print(Fore.GREEN + f"Saving results....\n")
 
@@ -574,6 +564,25 @@ def main():
         "Welcome to ADHD Medication Tracker", font="smslant"
     )
     print(Fore.YELLOW + header_ascii)
+
+    results_sheet = None
+    for worksheet in SHEET.worksheets():
+        if worksheet.title == 'Results':
+            results_sheet = SHEET.worksheet('Results')
+    if not results_sheet:
+        results_sheet = SHEET.add_worksheet(
+            title='Results', rows="100", cols="9"
+        )
+        results_sheet.append_row([
+            "Medication",
+            "Days",
+            "Missed doses 1",
+            "Missed doses 2",
+            "Missed doses 3",
+            "Incomplete intake days",
+            "Average efficiacy",
+            "Side effects days"
+        ])
 
     while True:
         menu()
