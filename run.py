@@ -42,10 +42,14 @@ def add_medication(SHEET):
     """
     while True:
         try:
-            all_medication_names = [worksheet.title for worksheet in SHEET.worksheets() if not worksheet.title == 'Results']
+            all_medication_names = [
+                worksheet.title
+                for worksheet in SHEET.worksheets()
+                if not worksheet.title == "Results"
+            ]
             print(Fore.CYAN + "All current medications:\n")
             print(tabulate(None, all_medication_names, tablefmt="orgtbl"))
-            
+
             medication_name = input(
                 Fore.YELLOW + "Enter the new medication name: \n" + Fore.RESET
             ).capitalize()
@@ -262,7 +266,11 @@ def new_log(SHEET):
     while True:
 
         try:
-            all_medication_names = [worksheet.title for worksheet in SHEET.worksheets() if not worksheet.title == 'Results']
+            all_medication_names = [
+                worksheet.title
+                for worksheet in SHEET.worksheets()
+                if not worksheet.title == "Results"
+            ]
             print(Fore.CYAN + "All current medications:")
             print(tabulate(None, all_medication_names, tablefmt="orgtbl"))
 
@@ -320,7 +328,11 @@ def new_medication_prompt():
 
     while True:
 
-        all_medication_names = [worksheet.title for worksheet in SHEET.worksheets() if not worksheet.title == 'Results']
+        all_medication_names = [
+            worksheet.title
+            for worksheet in SHEET.worksheets()
+            if not worksheet.title == "Results"
+        ]
         print(Fore.CYAN + "All current medications:")
         print(tabulate(None, all_medication_names, tablefmt="orgtbl"))
 
@@ -344,7 +356,11 @@ def new_log_prompt():
     when the user creates a new medication or views the list of logs
     """
     while True:
-        all_medication_names = [worksheet.title for worksheet in SHEET.worksheets() if not worksheet.title == 'Results']
+        all_medication_names = [
+            worksheet.title
+            for worksheet in SHEET.worksheets()
+            if not worksheet.title == "Results"
+        ]
         print(Fore.CYAN + "All current medications:")
         print(tabulate(None, all_medication_names, tablefmt="orgtbl"))
 
@@ -369,7 +385,11 @@ def view_medication_logs():
     """
 
     try:
-        all_medication_names = [worksheet.title for worksheet in SHEET.worksheets() if not worksheet.title == 'Results']
+        all_medication_names = [
+            worksheet.title
+            for worksheet in SHEET.worksheets()
+            if not worksheet.title == "Results"
+        ]
         print(Fore.CYAN + "All current medications:")
         print(tabulate(None, all_medication_names, tablefmt="orgtbl"))
 
@@ -392,18 +412,6 @@ def view_medication_logs():
                 entered_date = datetime.strptime(date_input, "%d/%m/%Y").date()
                 log_values = log_data.get_all_values()
 
-                headers = [
-                    "Date",
-                    "Dose",
-                    "Intake",
-                    "Dose1",
-                    "Dose2",
-                    "Dose3",
-                    "Impact",
-                    "Side Effect",
-                    "Note",
-                ]
-                wrap_header = [textwrap.fill(header, width=3) for header in headers]
                 sift_data = []
 
                 for row in log_values[1:]:
@@ -422,7 +430,9 @@ def view_medication_logs():
                     exit_or_menu()
                     return
             except Exception:
-                print(f"Date format is invalid, please enter the date in this format (DD/MM/YYYY)\n")
+                print(
+                    f"Date format is invalid, please enter the date in this format (DD/MM/YYYY)\n"
+                )
 
     except gspread.exceptions.WorksheetNotFound:
         print(
@@ -431,24 +441,33 @@ def view_medication_logs():
         )
         new_medication_prompt()
 
+
 def calculate_medication_statistics():
     """
-    Pull data from Google Sheets and calculate missed days, 
+    Pull data from Google Sheets and calculate missed days,
     side effects, and average efficacy
     """
     try:
-        all_medication_names = [worksheet.title for worksheet in SHEET.worksheets() if not worksheet.title == 'Results']
+        all_medication_names = [
+            worksheet.title
+            for worksheet in SHEET.worksheets()
+            if not worksheet.title == "Results"
+        ]
         print(Fore.CYAN + "All current medications:")
         print(tabulate(None, all_medication_names, tablefmt="orgtbl"))
 
-        search_medication = input(Fore.YELLOW + "Enter the name of medication you would like to evaluate: \n" + Fore.RESET).capitalize()
+        search_medication = input(
+            Fore.YELLOW
+            + "Enter the name of medication you would like to evaluate: \n"
+            + Fore.RESET
+        ).capitalize()
         evaluation_data = SHEET.worksheet(search_medication)
 
         medication_data = evaluation_data.get_all_values()
         headers = medication_data[0]
         rows = medication_data[1:]
 
-        #initialise counting
+        # initialise counting
         days_total = 0
         missed_dose_one = 0
         missed_dose_two = 0
@@ -468,7 +487,7 @@ def calculate_medication_statistics():
 
             if "2024" in date:
                 days_total += 1
-            
+
             if dose_one == "no":
                 missed_dose_one += 1
 
@@ -487,15 +506,16 @@ def calculate_medication_statistics():
             # total efficacy calculation
             try:
                 efficacy_value = int(efficacy)
-                if 0 <= efficacy_value <= 10: # Efficacy range
+                if 0 <= efficacy_value <= 10:  # Efficacy range
                     efficacy_total += efficacy_value
                     efficacy_counted += 1
             except ValueError:
-                continue # if not valid number, ignore
+                continue  # if not valid number, ignore
 
         # Average efficacy equation
-        efficacy_average = efficacy_total/efficacy_counted if efficacy_counted > 0 else 0
-
+        efficacy_average = (
+            efficacy_total / efficacy_counted if efficacy_counted > 0 else 0
+        )
 
         results_list = [
             search_medication,
@@ -508,7 +528,7 @@ def calculate_medication_statistics():
             side_effect_days,
         ]
 
-        results_sheet = SHEET.worksheet('Results')
+        results_sheet = SHEET.worksheet("Results")
         results_sheet.append_row(results_list)
 
         print(Fore.CYAN + f"Showing statistics for '{search_medication}': \n")
@@ -523,7 +543,7 @@ def calculate_medication_statistics():
 
         exit_or_menu()
         return
-    
+
     except gspread.exceptions.WorksheetNotFound:
         print(
             Fore.RED
@@ -572,22 +592,22 @@ def main():
 
     results_sheet = None
     for worksheet in SHEET.worksheets():
-        if worksheet.title == 'Results':
-            results_sheet = SHEET.worksheet('Results')
+        if worksheet.title == "Results":
+            results_sheet = SHEET.worksheet("Results")
     if not results_sheet:
-        results_sheet = SHEET.add_worksheet(
-            title='Results', rows="100", cols="9"
+        results_sheet = SHEET.add_worksheet(title="Results", rows="100", cols="9")
+        results_sheet.append_row(
+            [
+                "Medication",
+                "Evaluated days",
+                "Missed doses 1",
+                "Missed doses 2",
+                "Missed doses 3",
+                "Incomplete intake days",
+                "Average efficiacy",
+                "Side effects days",
+            ]
         )
-        results_sheet.append_row([
-            "Medication",
-            "Evaluated days",
-            "Missed doses 1",
-            "Missed doses 2",
-            "Missed doses 3",
-            "Incomplete intake days",
-            "Average efficiacy",
-            "Side effects days"
-        ])
 
     while True:
         menu()
@@ -603,9 +623,13 @@ def main():
         elif choice == "4":
             calculate_medication_statistics()
         elif choice == "5":
-            print(Fore.MAGENTA + "You chose to exit the program...Shutting down...Goodbye...")
+            print(
+                Fore.MAGENTA
+                + "You chose to exit the program...Shutting down...Goodbye..."
+            )
             break
         else:
             print(Fore.RED + "Invalid choice, please enter (1-5): \n")
+
 
 main()
