@@ -228,7 +228,7 @@ def validate_side_effects():
 def validate_user_observation():
     """
     Function to handle users personal str input describing effects and observations;
-    to prevent user from writing more than 10 words max. if limit is reached, shows error in logging
+    to prevent user from writing more than 20 words max. if limit is reached, shows error in logging
     """
     while True:
         observation_log = input(
@@ -238,10 +238,10 @@ def validate_user_observation():
         )
         isolate_words = observation_log.split()
         contains_words = any(word.isalpha() for word in isolate_words)
-        if len(isolate_words) > 10:
+        if len(isolate_words) > 20:
             print(
                 Fore.RED
-                + "You have entered more than 10 words, please enter no more than 10 words\n"
+                + "You have entered more than 20 words, please enter no more than 20 words\n"
             )
         elif not contains_words:
             print(
@@ -321,6 +321,7 @@ def new_medication_prompt():
     while True:
 
         all_medication_names = [worksheet.title for worksheet in SHEET.worksheets() if not worksheet.title == 'Results']
+        print(Fore.CYAN + "All current medications:")
         print(tabulate(None, all_medication_names, tablefmt="orgtbl"))
 
         add_medication_prompt = input(
@@ -344,7 +345,7 @@ def new_log_prompt():
     """
     while True:
         all_medication_names = [worksheet.title for worksheet in SHEET.worksheets() if not worksheet.title == 'Results']
-        print(Fore.CYAN + "Here is a list of all your medications: \n")
+        print(Fore.CYAN + "All current medications:")
         print(tabulate(None, all_medication_names, tablefmt="orgtbl"))
 
         create_log = input(
@@ -368,6 +369,10 @@ def view_medication_logs():
     """
 
     try:
+        all_medication_names = [worksheet.title for worksheet in SHEET.worksheets() if not worksheet.title == 'Results']
+        print(Fore.CYAN + "All current medications:")
+        print(tabulate(None, all_medication_names, tablefmt="orgtbl"))
+
         find_medication = input(
             Fore.YELLOW
             + "Enter the name of medication which logs you want to view: \n"
@@ -398,7 +403,7 @@ def view_medication_logs():
                     "Side Effect",
                     "Note",
                 ]
-                wrap_header = [textwrap.fill(header, width=4) for header in headers]
+                wrap_header = [textwrap.fill(header, width=3) for header in headers]
                 sift_data = []
 
                 for row in log_values[1:]:
@@ -408,21 +413,16 @@ def view_medication_logs():
                         continue
 
                 if not sift_data:
-                    print(Fore.RED + f"No matching data found for {entered_date}")
+                    print(Fore.RED + f"No matching data found for {entered_date} \n")
                 else:
-                    print(
-                        tabulate(
-                            sift_data,
-                            wrap_header,
-                            tablefmt="simple_grid",
-                            maxcolwidths=[6, 4, 4, 4, 4, 4, 4, 4, 10],
-                            stralign="center",
-                        )
-                    )
+                    headers = log_values[0]
+                    data = sift_data[0]
+                    for i in range(len(headers)):
+                        print(f"{headers[i]}:", Fore.MAGENTA + f"{data[i]}")
                     exit_or_menu()
                     return
-            except Exception as e:
-                print(f"{e}")
+            except Exception:
+                print(f"Date format is invalid, please enter the date in this format (DD/MM/YYYY)\n")
 
     except gspread.exceptions.WorksheetNotFound:
         print(
@@ -436,9 +436,11 @@ def calculate_medication_statistics():
     Pull data from Google Sheets and calculate missed days, 
     side effects, and average efficacy
     """
-    
-
     try:
+        all_medication_names = [worksheet.title for worksheet in SHEET.worksheets() if not worksheet.title == 'Results']
+        print(Fore.CYAN + "All current medications:")
+        print(tabulate(None, all_medication_names, tablefmt="orgtbl"))
+
         search_medication = input(Fore.YELLOW + "Enter the name of medication you would like to evaluate: \n" + Fore.RESET).capitalize()
         evaluation_data = SHEET.worksheet(search_medication)
 
@@ -537,7 +539,7 @@ def exit_or_menu():
 
     while True:
 
-        print(" 1. Return to Main Menu:")
+        print("\n 1. Return to Main Menu:")
         print(" 2. Exit.\n")
         select = input(Fore.CYAN + "Enter your choice (1 or 2): \n" + Fore.RESET)
         if select == "1":
