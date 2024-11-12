@@ -24,10 +24,13 @@ This application is not only useful to those with ADHD, but also their caregiver
       * [*Create New Log*](#create-new-log) 
       * [*View Medication Logs*](#view-medication-logs)
       * [*Evaluate Medication Efficacy*](#evaluate-medication-efficacy)
-    * [***Data Modeling***]
+    * [***Data Modeling***](#data-modeling)
     * [***Possible Future Features***](#possible-future-features) 
 3. [**Testing Phase**](#testing-phase) 
-4. [**Deployment**](#deployment) 
+4. [**Deployment**](#deployment)
+    * [***Cloning & Forking***](#cloning--forking)
+    * [***Local Deployment***](#local-deployment)
+    * [***Remote Deployment to Heroku***](#remote-deployment-to-heroku)
 5. [**Credits**](#credits) 
     * [**Python Libraries Used**](#python-libraries-used) 
     * [**Technologies Used**](#tchnologies-used) 
@@ -90,8 +93,51 @@ Some of the key aims are:
 ## **Testing Phase:** 
 
 ## **Deployment:** 
-### **Local Deployment**
-### **Deployment to Heroku:**
+### **Cloning & Forking**
+#### **Clone** 
+1. Go to the chosen repository. 
+2. Click on the "Code" green button on the top-ride side of the page. 
+3. Select and Copy the HTTP (URL) 
+4. Open the Git Terminal; change the current directory to the desired one where the cloned directory is to be placed. 
+5. Input 'git clone' and after it the URL that was copied to look as following *git clone https://github.com/username/repository/* 
+6. Click "Enter" to create a clone. 
+
+#### **Fork** 
+1. Log in to [GitHub](https://github.com/) 
+2. Use navigation to locate [KIrynaW/adhd-medication-tracker](https://github.com/KIrynaW/adhd-medication-tracker) repository. 
+3. In the top right corner of the page, locate "Fork" and click on it. 
+4. In the "Repository Name" input window, create a new name that is different to the current or you can choose to keep the original. 
+5. You can create a description of your Fork 
+6. Scroll to the bottom of the page; in the bottom-right corner, click "Create Fork". 
+
+*** 
+#### **Local Deployment**
+1. Register for a Gitpod account.
+2. Install the Gitpod browser extension.
+3. Use the link to acces the [P3-depoyment-template](https://github.com/Code-Institute-Org/python-essentials-template)
+4. In the top right corner, locate and click on "Use this template" -> "Create a new repository"
+5. Create a name and description for the project.(adhd-medication-tracker)
+6. Go to KIrynaW/adhd-medication-tracker repository on GitHub.com
+5. Click the "Open"(Gitpod) button located above the file list.
+6. Install the [libraries](#python-libraries-used) required for the project in the terminal and update the requirements.txt file by entering "pip freeze > requirements.txt" into the terminal.
+
+#### **Remote Deployment to Heroku:**
+1. Create a Heroku account.
+2. Log in, then locate and click on "Dashbord"
+3. Click on "New" -> "Create new app"
+4. Choose an original name for your app and set your location to "Europe"
+5. Go to the "Settings" tab.
+6. Scroll down to "Config Vars" and click on "Reveal Config Vars."
+7. Add a new config variable with **CREDS** as the key and the contents of your **Google API** credentials file as the value.
+8. Add another config variable with **PORT** as the key and **8000** as the value.
+9. Press the "Add buildpack" button; first add "Python" and then the "Node.js" buildpacks.
+10. Exit the "Settings and go to the "Deploy" section.
+1. Connect your Heroku app to your coresponding GitHub repository.
+12. Click on **Deploy Branch** to manualy deploy the application.
+Once deployed, Heroku will display the URL to access the Python terminal.
+
+[Link to the final Deployment]()
+
 
 ## **Credits:** 
 ### **Python Libraries Used** 
