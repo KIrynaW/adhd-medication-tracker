@@ -521,7 +521,7 @@ def calculate_medication_statistics():
             missed_dose_two,
             missed_dose_three,
             missed_doses_days,
-            efficacy_average,
+            round_efficacy_average,
             side_effect_days,
         ]
 
