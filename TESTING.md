@@ -13,10 +13,12 @@
   ### **Bugs**
 
   ### **Validator Testing**
-  
-  ![]
+
+  ![](docs/screenshots/pep8_linter_validation.jpg)
 
   ### **Accessibility Testing:**
+
+  ![](docs/screenshots/lighthouse_accessibility.jpg)
 
   ### **Manual Testing**
 
