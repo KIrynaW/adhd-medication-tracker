@@ -24,6 +24,7 @@ This application is not only useful to those with ADHD, but also their caregiver
       * [*Create New Log*](#create-new-log) 
       * [*View Medication Logs*](#view-medication-logs)
       * [*Evaluate Medication Efficacy*](#evaluate-medication-efficacy)
+    * [***Features***]()
     * [***Data Modeling***](#data-modeling)
     * [***Possible Future Features***](#possible-future-features) 
 3. [**Testing Phase**](#testing-phase) 
@@ -91,6 +92,45 @@ The bellow flow of the functions was slightly changed and adjusted as the code w
 #### **Create New Log**
 #### **View Medication Logs**
 #### **Evaluate Medication Efficacy**
+
+## **Features:**
+
+Header:
+
+![Name of the application](docs/screenshots/main_header.jpg)
+
+Main Menu:
+
+![Main menu options](docs/screenshots/main_menu.jpg)
+
+Option One:
+
+![Choise one creating a new medication](docs/screenshots/option_one.jpg)
+
+Option Two:
+
+![Log already exists message](docs/screenshots/log_exists_skip.jpg)
+![Creating a new log](docs/screenshots/option_two.jpg)
+![Dose three option in create log](docs/screenshots/dose_three_option.jpg)
+![Dose one option in create log](docs/screenshots/dose_one_opt.jpg)
+
+Option Three:
+
+![Option three chosen](docs/screenshots/option_three.jpg)
+![Show log history for chosen date](docs/screenshots/option_three_result.jpg)
+
+Option Four:
+
+![Option four choice input medication name](docs/screenshots/option_four.jpg)
+![Result based on medication chosen](docs/screenshots/evaluate_meds.jpg)
+
+Option Five:
+
+![Option 5 to exit](docs/screenshots/option_five.jpg)
+
+Exit and Return to Menu Prompt:
+![Prompt to return to menu or exit; choice one](docs/screenshots/return_menu.jpg)
+![Prompt to return to menu or exit; choice two](docs/screenshots/exit_return_opt_two.jpg)
 
 ### **Data Modeling:**
 
