@@ -26,29 +26,24 @@ SHEET = GSPREAD_CLIENT.open("adhd_medication_tracker")
 
 def menu():
 
-    print(Fore.CYAN + "**** Main Menu ****\n")
-    print("*" * 19)
-    print(" 1. Add new medication")
-    print(" 2. Create a new log")
+    print(Fore.CYAN + "********* Main Menu **********")
+    print("*" * 30)
+    print(" \n 1. Add new medication file")
+    print(" 2. Create new day log")
     print(" 3. View medication logs")
-    print(" 4. Evaluate efficacy")
+    print(" 4. View medication statistics")
     print(" 5. Exit\n")
-    print("*" * 19)
+    print("*" * 30)
 
 
 def add_medication(SHEET):
     """
     Create a new worksheet with a new medication name and headings to log progress
     """
+    print( "You chose:", Fore.MAGENTA +  "**** Option 1 - 'Add new medication file' ****\n")
+
     while True:
         try:
-            all_medication_names = [
-                worksheet.title
-                for worksheet in SHEET.worksheets()
-                if not worksheet.title == "Results"
-            ]
-            print(Fore.CYAN + "All current medications:\n")
-            print(tabulate(None, all_medication_names, tablefmt="orgtbl"))
 
             medication_name = input(
                 Fore.YELLOW + "Enter the new medication name: \n" + Fore.RESET
@@ -87,11 +82,19 @@ def add_medication(SHEET):
                 new_log_prompt()
                 break
 
-        except Exception as e:
+        except:
             print(
                 Fore.RED
                 + f"Could not create a new medication file: A sheet with the name '{medication_name}' already exists. Please enter another name.\n"
             )
+            all_medication_names = [
+                worksheet.title
+                for worksheet in SHEET.worksheets()
+                if not worksheet.title == "Results"
+            ]
+            print(Fore.CYAN + "All current medications:")
+            print(tabulate(None, all_medication_names, tablefmt="orgtbl"))
+
 
 
 def validate_date(worksheet):
@@ -124,7 +127,7 @@ def validate_dose():
                 )
             else:
                 return dose_log
-        except Exception:
+        except ValueError:
             print(
                 Fore.RED
                 + f"Medication dose cannot be a word or a letter, please enter a number in mg:\n"
@@ -201,7 +204,7 @@ def validate_efficacy():
                     + f"{efficacy_log} is above the rating range, please enter (0-10)\n"
                 )
 
-        except Exception:
+        except ValueError:
             print(
                 Fore.RED
                 + f"Your input is invalid, please enter a number rating (0-10)\n"
@@ -264,6 +267,8 @@ def new_log(SHEET):
     The function checks for existance of worksheet selected by the user,
     and offers the user to create new medication worksheet if it does not exist
     """
+    print( "You chose:", Fore.MAGENTA +  "**** Option 2 - 'Create a new day log' ****\n")
+
     while True:
 
         try:
@@ -344,11 +349,12 @@ def new_medication_prompt():
         ).lower()
         if "yes" in add_medication_prompt:
             add_medication(SHEET)
+            break
         elif "no" in add_medication_prompt:
             exit_or_menu()
             break
         else:
-            print(Fore.RED + "The input is invalid, please type (yes or no)")
+            print(Fore.RED + "The input is invalid, please type (yes or no)\n")
 
 
 def new_log_prompt():
@@ -377,13 +383,14 @@ def new_log_prompt():
             exit_or_menu()
             break
         else:
-            print(Fore.RED + "The input is invalid, please enter (yes or no)")
+            print(Fore.RED + "The input is invalid, please enter (yes or no)\n")
 
 
 def view_medication_logs():
     """
     Function that retrieves and shows the user their chosen medication log date
     """
+    print( "You chose:", Fore.MAGENTA +  "**** Option 3 - 'View medication logs' ****\n")
 
     try:
         all_medication_names = [
@@ -430,7 +437,7 @@ def view_medication_logs():
                         print(f"{headers[i]}:", Fore.MAGENTA + f"{data[i]}")
                     exit_or_menu()
                     return
-            except Exception:
+            except ValueError:
                 print(
                     f"Date format is invalid, please enter the date in this format (DD/MM/YYYY)\n"
                 )
@@ -448,6 +455,8 @@ def calculate_medication_statistics():
     Pull data from Google Sheets and calculate missed days,
     side effects, and average efficacy
     """
+    print( "You chose:", Fore.MAGENTA +  "**** Option 4 - 'View medication statistics' ****\n")
+
     try:
         all_medication_names = [
             worksheet.title
@@ -517,6 +526,7 @@ def calculate_medication_statistics():
         efficacy_average = (
             efficacy_total / efficacy_counted if efficacy_counted > 0 else 0
         )
+        round_efficacy_average = round(efficacy_average) # Convert to a whole number
 
         results_list = [
             search_medication,
@@ -538,7 +548,7 @@ def calculate_medication_statistics():
         print(f"Missed second doses:", Fore.MAGENTA + f" {missed_dose_two}")
         print(f"Missed third doses:", Fore.MAGENTA + f" {missed_dose_three}")
         print(f"Incoplete intake days:", Fore.MAGENTA + f" {missed_doses_days}")
-        print(f"Average efficacy:", Fore.MAGENTA + f" {efficacy_average}")
+        print(f"Average efficacy:", Fore.MAGENTA + f" {round_efficacy_average}")
         print(f"Days with side effects:", Fore.MAGENTA + f" {side_effect_days} \n")
         print(Fore.GREEN + f"Saving results....\n")
 
@@ -559,12 +569,12 @@ def exit_or_menu():
     """
 
     while True:
-
+        print(Fore.CYAN + "*" * 38)
         print("\n 1. Return to Main Menu:")
         print(" 2. Exit.\n")
         select = input(Fore.CYAN + "Enter your choice (1 or 2): \n" + Fore.RESET)
         if select == "1":
-            print(Fore.GREEN + "Returning to Main Menu....")
+            print(Fore.GREEN + "Returning to Main Menu....\n")
             time.sleep(1)
             return
         elif select == "2":
@@ -577,7 +587,7 @@ def exit_or_menu():
         else:
             print(
                 Fore.RED
-                + "Invalid choice. Please enter 1 to return to Menu or 2 to Exit."
+                + "Invalid choice. Please enter 1 to return to Menu or 2 to Exit.\n"
             )
 
 
@@ -626,7 +636,7 @@ def main():
         elif choice == "5":
             print(
                 Fore.MAGENTA
-                + "You chose to exit the program...Shutting down...Goodbye..."
+                + "You chose to exit the program...Shutting down...Goodbye...\n"
             )
             break
         else:
