@@ -57,7 +57,7 @@ def add_medication(SHEET):
             elif medication_name.strip() == "":
                 print(
                     Fore.RED + "Your input cannot be empty,",
-                    Fore.RED + "please enter the name of your new medication:\n",
+                    Fore.RED + "please enter the new medication name:\n",
                 )
             else:
                 new_medication = SHEET.add_worksheet(
@@ -118,7 +118,10 @@ def validate_dose():
     while True:
         try:
             dose_log = int(
-                input(Fore.YELLOW + "Enter medication dose in (mg):\n" + Fore.RESET)
+                input(
+                    Fore.YELLOW
+                    + "Enter medication dose in (mg):\n"
+                    + Fore.RESET)
             )
             if dose_log == 0:
                 print(
@@ -145,7 +148,7 @@ def validate_intake():
             frequency_log = int(
                 input(
                     Fore.YELLOW
-                    + "What is the frequency of the medication intake per day (1-3):\n"
+                    + "Enter the frequency of intake per day (1-3):\n"
                     + Fore.RESET
                 )
             )
@@ -239,7 +242,8 @@ def validate_user_observation():
     while True:
         observation_log = input(
             Fore.YELLOW
-            + "Write a note regarding your experience taking the medication (max 20 words):\n"
+            + "Write a note regarding your experience taking the medication"
+            + "(max 20 words):\n"
             + Fore.RESET,
         )
         isolate_words = observation_log.split()
@@ -269,10 +273,10 @@ def new_log(SHEET):
     print("You chose:", Fore.MAGENTA + "*** '2.Create a new day log' ***\n")
 
     all_medication_names = [
-                worksheet.title
-                for worksheet in SHEET.worksheets()
-                if not worksheet.title == "Results"
-            ]
+        worksheet.title
+        for worksheet in SHEET.worksheets()
+        if not worksheet.title == "Results"
+    ]
     print(Fore.CYAN + "All current medications:")
     print(tabulate(None, all_medication_names, tablefmt="orgtbl"))
 
@@ -281,12 +285,14 @@ def new_log(SHEET):
         try:
 
             choose_medication = input(
-                Fore.YELLOW + "Enter medication name you want to log:\n" + Fore.RESET
+                            Fore.YELLOW
+                            + "Enter medication name you want to log:\n"
+                            + Fore.RESET
             ).capitalize()
             if choose_medication.strip() == "":
                 print(
                     Fore.RED + "Your input cannot be empty,",
-                    Fore.RED + "please enter medication name you want to log: \n",
+                    Fore.RED + "please enter medication you want to log:\n",
                 )
             else:
                 # Add current date autofill
@@ -583,7 +589,9 @@ def main():
         if worksheet.title == "Results":
             results_sheet = SHEET.worksheet("Results")
     if not results_sheet:
-        results_sheet = SHEET.add_worksheet(title="Results", rows="100", cols="9")
+        results_sheet = SHEET.add_worksheet(
+            title="Results", rows="100", cols="9"
+            )
         results_sheet.append_row(
             [
                 "Medication",
