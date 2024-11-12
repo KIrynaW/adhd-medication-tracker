@@ -96,6 +96,15 @@ Some of the key aims are:
 ## **Credits:** 
 ### **Python Libraries Used** 
 ### **Technologies Used** 
+- [GitHub](https://github.com/) - used to create, store and save the quiz building components. 
+- [Git](https://git-scm.com/) - used for version control in the GitPod Terminal to Add, Commit and Push the code to GitHub 
+- [Heroku](https://heroku.com/) - used to deploy the application.
+- [Birme](https://www.birme.net/) - used to resize the images and format screenshots for README.md
+- [LightHouse Google Extension](https://chromewebstore.google.com/detail/lighthouse/blipmdconlkpinefehnmjammfjpmpbjk?hl=en) - this Chrome Dev Tools was used to scan and generate performance statistic.
+- [CI Python Linter](https://pep8ci.herokuapp.com/) - used to validate the python code by PEP8 standards to check for formating issues.
+- [Google Sheets](https://workspace.google.com/intl/en_ie/products/sheets/) - Used the google sheets to store the data of the aplication
+- [Google Cloud APIs](https://cloud.google.com/) - used to manage Google Sheets access
+
 ### **Code** 
 The structure for the project was loosely based on the [Walkthrough project "Love Sandwiches"](), and used as a guideline only.
 
