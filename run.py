@@ -82,7 +82,7 @@ def add_medication(SHEET):
                 new_log_prompt()
                 break
 
-        except Exception:
+        except Exception as e:
             print(
                 Fore.RED + f"Could not create a new medication file:",
                 Fore.RED + f"a file '{medication_name}' already exists\n",
@@ -323,7 +323,7 @@ def new_log(SHEET):
                     exit_or_menu()
                     break
 
-        except gspread.exceptions.WorksheetNotFound:
+        except gspread.exceptions.WorksheetNotFound as e:
             print(Fore.RED + f"'{choose_medication} file does not exist'\n")
             new_medication_prompt()
             return
@@ -432,7 +432,7 @@ def view_medication_logs():
                     Fore.RED + "please enter the date in (DD/MM/YYYY)\n",
                 )
 
-    except gspread.exceptions.WorksheetNotFound:
+    except gspread.exceptions.WorksheetNotFound as e:
         print(Fore.RED + f"Medication '{find_medication}' does not exist \n")
         new_medication_prompt()
 
@@ -546,7 +546,7 @@ def calculate_medication_statistics():
         exit_or_menu()
         return
 
-    except gspread.exceptions.WorksheetNotFound:
+    except gspread.exceptions.WorksheetNotFound as e:
         print(Fore.RED + f"Medication '{search_medication}' does not exist\n")
         new_medication_prompt()
 
