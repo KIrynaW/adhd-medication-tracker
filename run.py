@@ -268,16 +268,17 @@ def new_log(SHEET):
     """
     print("You chose:", Fore.MAGENTA + "*** '2.Create a new day log' ***\n")
 
-    while True:
-
-        try:
-            all_medication_names = [
+    all_medication_names = [
                 worksheet.title
                 for worksheet in SHEET.worksheets()
                 if not worksheet.title == "Results"
             ]
-            print(Fore.CYAN + "All current medications:")
-            print(tabulate(None, all_medication_names, tablefmt="orgtbl"))
+    print(Fore.CYAN + "All current medications:")
+    print(tabulate(None, all_medication_names, tablefmt="orgtbl"))
+
+    while True:
+
+        try:
 
             choose_medication = input(
                 Fore.YELLOW + "Enter medication name you want to log:\n" + Fore.RESET
@@ -360,13 +361,6 @@ def new_log_prompt():
     when the user creates a new medication or views the list of logs
     """
     while True:
-        all_medication_names = [
-            worksheet.title
-            for worksheet in SHEET.worksheets()
-            if not worksheet.title == "Results"
-        ]
-        print(Fore.CYAN + "All current medications:")
-        print(tabulate(None, all_medication_names, tablefmt="orgtbl"))
 
         create_log = input(
             Fore.YELLOW
@@ -390,13 +384,6 @@ def view_medication_logs():
     print("You chose:", Fore.MAGENTA + "****3 - 'View medication logs' ****\n")
 
     try:
-        all_medication_names = [
-            worksheet.title
-            for worksheet in SHEET.worksheets()
-            if not worksheet.title == "Results"
-        ]
-        print(Fore.CYAN + "All current medications:")
-        print(tabulate(None, all_medication_names, tablefmt="orgtbl"))
 
         find_medication = input(
             Fore.YELLOW
