@@ -48,8 +48,35 @@
 
   - Enter Efficacy:
       ![](docs/screenshots/testing/efficacy_test.jpg)
-      
-  - Enter Side effects:
-  - Enter Note:
+
+  - Enter side effects:
+      ![](docs/screenshots/testing/side_effects_test.jpg)
+
+  - Enter note:<br>
+      ![](docs/screenshots/testing/note_test.jpg)
+
+  Test viewing of log history:
+
+  - Date validation:
+      ![](docs/screenshots/testing/view_log_date_test.jpg)
+
+  - Results when existing date log is entered:
+      ![](docs/screenshots/testing/view_date_testing_two.jpg)
+
+  Test viewing the statistics:
+
+  - Wrong medication input
+      ![](docs/screenshots/testing/view_stats_test.jpg)
+
+  - Exit or Return prompt when wrong input:
+      ![](docs/screenshots/testing/new_med_prompt_no_test.jpg)
+
+      ![](docs/screenshots/testing/return_exit_test.jpg)
+
+      ![](docs/screenshots/testing/exit_return_test_two.jpg)
+
+
+
+
 
   ### **User Story Testing**

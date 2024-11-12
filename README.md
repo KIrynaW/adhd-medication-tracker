@@ -138,7 +138,7 @@ Exit and Return to Menu Prompt:
 
 ## **Testing Phase:** 
 
-All testing related information can be found in [TESTING.md](/workspace/adhd-medication-tracker/TESTING.md)
+All testing related information can be found in [TESTING.md](TESTING.md)
 
 ## **Deployment:**
 ### **Local Deployment**
