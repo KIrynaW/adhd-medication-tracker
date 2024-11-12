@@ -313,7 +313,7 @@ def new_log(SHEET):
                             user_observation,
                         ]
                     )
-                    print(Fore.GREEN + "Creating a log for today.....\n")
+                    print("\n", Fore.GREEN + "Creating a log for today.....\n")
                     exit_or_menu()
                     break
 
