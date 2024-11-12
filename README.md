@@ -79,6 +79,12 @@ Some of the key aims are:
   
 
 ## **Implementation Phase:** 
+### ***Planning:***
+The development of the aplication started with the flowchart creation which served as a rough idea for the flow of the commands and demonstartion of functionality.
+The bellow flow of the functions was slightly changed and adjusted as the code was developed.
+
+![Flow chart of the ADHD Medication Tracker](docs/screenshots/adhd_medicationtracker_flowchart.jpeg)
+
 ### **How to Use it:** 
 #### **Menu** 
 #### **Add Medication**
@@ -92,7 +98,34 @@ Some of the key aims are:
 
 ## **Testing Phase:** 
 
-## **Deployment:** 
+## **Deployment:**
+### **Local Deployment**
+1. Register for a Gitpod account.
+2. Install the Gitpod browser extension.
+3. Use the link to acces the [P3-depoyment-template](https://github.com/Code-Institute-Org/python-essentials-template)
+4. In the top right corner, locate and click on "Use this template" -> "Create a new repository"
+5. Create a name and description for the project.(adhd-medication-tracker)
+6. Go to KIrynaW/adhd-medication-tracker repository on GitHub.com
+5. Click the "Open"(Gitpod) button located above the file list.
+6. Install the [libraries](#python-libraries-used) required for the project in the terminal and update the requirements.txt file by entering "pip freeze > requirements.txt" into the terminal.
+
+### **Remote Deployment to Heroku:**
+1. Create a Heroku account.
+2. Log in, then locate and click on "Dashbord"
+3. Click on "New" -> "Create new app"
+4. Choose an original name for your app and set your location to "Europe"
+5. Go to the "Settings" tab.
+6. Scroll down to "Config Vars" and click on "Reveal Config Vars."
+7. Add a new config variable with **CREDS** as the key and the contents of your **Google API** credentials file as the value.
+8. Add another config variable with **PORT** as the key and **8000** as the value.
+9. Press the "Add buildpack" button; first add "Python" and then the "Node.js" buildpacks.
+10. Exit the "Settings and go to the "Deploy" section.
+1. Connect your Heroku app to your coresponding GitHub repository.
+12. Click on **Deploy Branch** to manualy deploy the application.
+Once deployed, Heroku will display the URL to access the Python terminal.
+
+[Link to the final Deployment]() 
+
 ### **Cloning & Forking**
 #### **Clone** 
 1. Go to the chosen repository. 
@@ -110,34 +143,10 @@ Some of the key aims are:
 5. You can create a description of your Fork 
 6. Scroll to the bottom of the page; in the bottom-right corner, click "Create Fork". 
 
-*** 
-#### **Local Deployment**
-1. Register for a Gitpod account.
-2. Install the Gitpod browser extension.
-3. Use the link to acces the [P3-depoyment-template](https://github.com/Code-Institute-Org/python-essentials-template)
-4. In the top right corner, locate and click on "Use this template" -> "Create a new repository"
-5. Create a name and description for the project.(adhd-medication-tracker)
-6. Go to KIrynaW/adhd-medication-tracker repository on GitHub.com
-5. Click the "Open"(Gitpod) button located above the file list.
-6. Install the [libraries](#python-libraries-used) required for the project in the terminal and update the requirements.txt file by entering "pip freeze > requirements.txt" into the terminal.
+### **Google Sheets & Google Cloud Platform**
 
-#### **Remote Deployment to Heroku:**
-1. Create a Heroku account.
-2. Log in, then locate and click on "Dashbord"
-3. Click on "New" -> "Create new app"
-4. Choose an original name for your app and set your location to "Europe"
-5. Go to the "Settings" tab.
-6. Scroll down to "Config Vars" and click on "Reveal Config Vars."
-7. Add a new config variable with **CREDS** as the key and the contents of your **Google API** credentials file as the value.
-8. Add another config variable with **PORT** as the key and **8000** as the value.
-9. Press the "Add buildpack" button; first add "Python" and then the "Node.js" buildpacks.
-10. Exit the "Settings and go to the "Deploy" section.
-1. Connect your Heroku app to your coresponding GitHub repository.
-12. Click on **Deploy Branch** to manualy deploy the application.
-Once deployed, Heroku will display the URL to access the Python terminal.
 
-[Link to the final Deployment]()
-
+***
 
 ## **Credits:** 
 ### **Python Libraries Used** 
@@ -177,7 +186,8 @@ Once deployed, Heroku will display the URL to access the Python terminal.
 - [LightHouse Google Extension](https://chromewebstore.google.com/detail/lighthouse/blipmdconlkpinefehnmjammfjpmpbjk?hl=en) - this Chrome Dev Tools was used to scan and generate performance statistic.
 - [CI Python Linter](https://pep8ci.herokuapp.com/) - used to validate the python code by PEP8 standards to check for formating issues.
 - [Google Sheets](https://workspace.google.com/intl/en_ie/products/sheets/) - Used the google sheets to store the data of the aplication
-- [Google Cloud APIs](https://cloud.google.com/) - used to manage Google Sheets access
+- [Google Cloud Platform](https://cloud.google.com/) - used to manage Google Sheets access
+- [FlowChart Maker](https://www.lucidchart.com/pages/examples/flowchart-maker) - used to create a flowchart in the project development
 
 ### **Code** 
 The structure for the project was loosely based on the [Walkthrough project "Love Sandwiches"](), and used as a guideline only.
