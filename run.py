@@ -86,7 +86,7 @@ def add_medication(SHEET):
         except Exception:
             print(
                 Fore.RED + f"Could not create a new medication file:",
-                Fore.RED + "a file '{medication_name}' already exists\n",
+                Fore.RED + f"a file '{medication_name}' already exists\n",
             )
             all_medication_names = [
                 worksheet.title
@@ -144,8 +144,9 @@ def validate_intake():
         try:
             frequency_log = int(
                 input(
-                    Fore.YELLOW + "What is the frequency of",
-                    Fore.YELLOW + "the medication intake per day (1-3):\n" + Fore.RESET,
+                    Fore.YELLOW
+                    + "What is the frequency of the medication intake per day (1-3):\n"
+                    + Fore.RESET
                 )
             )
             if frequency_log > 3:
@@ -160,7 +161,9 @@ def validate_intake():
     for i in range(frequency_log):
         while True:
             dose_choice = input(
-                Fore.YELLOW + f"Have you taken dose {i+1} today (yes/no):\n" + Fore.RESET
+                Fore.YELLOW
+                + f"Have you taken dose {i+1} today (yes/no):\n"
+                + Fore.RESET
             ).lower()
             if "yes" in dose_choice:
                 intake_log[i] = "Yes"
@@ -187,8 +190,9 @@ def validate_efficacy():
         try:
             efficacy_log = int(
                 input(
-                    Fore.YELLOW + "How effective did you find the medication (1 to 10),",
-                    Fore.YELLOW + "enter 0 if missed doses: \n" + Fore.RESET,
+                    Fore.YELLOW
+                    + "How effective did you find the medication (0 to 10)\n"
+                    + Fore.RESET,
                 )
             )
             if efficacy_log <= int(10):
@@ -200,9 +204,7 @@ def validate_efficacy():
                 )
 
         except ValueError:
-            print(
-                Fore.RED + f"Invalid input, please enter a rating (0-10)\n"
-            )
+            print(Fore.RED + f"Invalid input, please enter a rating (0-10)\n")
 
 
 def validate_side_effects():
@@ -236,8 +238,9 @@ def validate_user_observation():
     """
     while True:
         observation_log = input(
-            Fore.YELLOW + "Write an observation note regarding your",
-            Fore.YELLOW + "experience taking the medication (max 20 words):\n" + Fore.RESET,
+            Fore.YELLOW
+            + "Write a note regarding your experience taking the medication (max 20 words):\n"
+            + Fore.RESET,
         )
         isolate_words = observation_log.split()
         contains_words = any(word.isalpha() for word in isolate_words)
@@ -448,7 +451,8 @@ def calculate_medication_statistics():
     side effects, and average efficacy
     """
     print(
-        "You chose:", Fore.MAGENTA + "*** '4.View medication statistics' ***\n",
+        "You chose:",
+        Fore.MAGENTA + "*** '4.View medication statistics' ***\n",
     )
 
     try:
@@ -570,9 +574,7 @@ def exit_or_menu():
             time.sleep(1)
             return
         elif select == "2":
-            print(
-                Fore.MAGENTA + "Exiting ADHD Medication Tracker...Bye!...\n"
-            )
+            print(Fore.MAGENTA + "Exiting ADHD Medication Tracker...Bye!...\n")
             time.sleep(1)
             sys.exit()
         else:
