@@ -95,6 +95,34 @@ Some of the key aims are:
 
 ## **Credits:** 
 ### **Python Libraries Used** 
+[colorama==0.4.6](https://pypi.org/project/colorama/) - used to colorcode the code input and print strings
+
+[DateTime==5.5](https://pypi.org/project/DateTime/) - used to validate date input and output
+
+[google-auth==2.36.0](https://pypi.org/project/google-auth/) - simplifies using Google’s various server-to-server authentication mechanisms to access Google APIs.
+
+[google-auth-oauthlib==1.2.1](https://pypi.org/project/google-auth-oauthlib/) - provides oauthlib integration with google-auth.
+
+[gspread==6.1.4](https://pypi.org/project/gspread/) - interface for working manipulating the Google Sheets.
+
+[oauthlib==3.2.2](https://pypi.org/project/oauthlib/) - implements the logic of OAuth1 or OAuth2 without assuming a specific HTTP request object or web framework.
+
+[pyasn1==0.6.1](https://pypi.org/project/pyasn1/) - implementation of ASN.1 types and codecs as a Python package.
+
+[pyasn1_modules==0.4.1](https://pypi.org/project/pyasn1-modules/) - contains a collection of ASN.1 data structures expressed as Python classes based on pyasn1 data model.
+
+[pyfiglet==1.0.2](https://pypi.org/project/pyfiglet/) - takes ASCII text and renders it in ASCII art fonts.
+
+[pytz==2024.2](https://pypi.org/project/pytz/) - allows accurate and cross platform timezone calculations using Python 2.4 or higher. 
+
+[requests-oauthlib==2.0.0](https://pypi.org/project/requests-oauthlib/) - provides first-class OAuth library support for Requests
+
+[rsa==4.9](https://pypi.org/project/rsa/) - supports encryption and decryption, signing and verifying signatures, and key generation
+
+[tabulate==0.9.0](https://pypi.org/project/tabulate/) - pretty-print the data to table format in the terminal
+
+[zope.interface==7.1.1](https://pypi.org/project/zope.interface/) - provides an implementation of “object interfaces” for Python. 
+
 ### **Technologies Used** 
 - [GitHub](https://github.com/) - used to create, store and save the quiz building components. 
 - [Git](https://git-scm.com/) - used for version control in the GitPod Terminal to Add, Commit and Push the code to GitHub 
