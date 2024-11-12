@@ -7,7 +7,6 @@ from colorama import init, Fore, Style
 from tabulate import tabulate
 import pyfiglet
 import time
-import textwrap
 
 # Initialize colorama library
 init(autoreset=True)
@@ -105,7 +104,7 @@ def validate_date(worksheet):
     date_log = datetime.today().date().strftime("%d/%m/%Y")
     if worksheet.findall(date_log):
         print(Fore.RED + "Today's log already exists, skipping...\n")
-        new_log_prompt()
+        exit_or_menu()
         return
     else:
         return date_log
