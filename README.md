@@ -138,6 +138,8 @@ Exit and Return to Menu Prompt:
 
 ## **Testing Phase:** 
 
+All testing related information can be found in [TESTING.md](/workspace/adhd-medication-tracker/TESTING.md)
+
 ## **Deployment:**
 ### **Local Deployment**
 1. Register for a Gitpod account.
