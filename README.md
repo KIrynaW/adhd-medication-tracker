@@ -175,17 +175,36 @@ Here’s a typical sequence of how you might use the tracker:<br>
 By following these steps, you can effectively track and analyze your ADHD medication usage over time.
 
 ## **Current Features:**
-|Section    |Feature Description  |Evidence                                                     | 
-|-----------|---------------------|-------------------------------------------------------------|
-|Main Menu  |Header and display of all menu options:|![Name of the application](docs/screenshots/main_header.jpg)<br> ![Main menu options](docs/screenshots/main_menu.jpg)|
-|Option 1         |Adding new medications process:|![Choise one creating a new medication](docs/screenshots/option_one.jpg)|
-|Option 2         |Creating logs for multiple medications; dose quantity changes depending on frequency of intake:|![Log already exists message](docs/screenshots/log_exists_skip.jpg)<br> ![Creating a new log](docs/screenshots/option_two.jpg)<br> ![Dose three option in create log](docs/screenshots/dose_three_option.jpg)<br> ![Dose one option in create log](docs/screenshots/dose_one_opt.jpg)|
-|Option 3         |Viewing log history by date:| ![Option three chosen](docs/screenshots/option_three.jpg)<br> ![Show log history for chosen date](docs/screenshots/option_three_result.jpg)|
-|Option 4  |Generating a statistic based on medication logs:| ![Option four choice input medication name](docs/screenshots/option_four.jpg)<br> ![Result based on medication chosen](docs/screenshots/evaluate_meds.jpg)|
-|Option 5 |Exiting the application:|![Option 5 to exit](docs/screenshots/option_five.jpg)|
-|Exit/ Return prompt|Exit and Return to Menu Prompt that pops up after every function execution:|![Prompt to return to menu or exit; choice one](docs/screenshots/return_menu.jpg)<br> ![Prompt to return to menu or exit; choice two](docs/screenshots/exit_return_opt_two.jpg)|
+|Section: Feature Description |Evidence                                                     | 
+|-------------|-------------------------------------------------------------|
+|Main Menu:<br> Header and display of <br> all menu options:|![Name of the application](docs/screenshots/main_header.jpg)<br> ![Main menu options](docs/screenshots/main_menu.jpg)|
+|Option 1:<br> Adding new <br> medications process:|![Choise one creating a new medication](docs/screenshots/option_one.jpg)|
+|Option 2:<br> Creating logs for multiple<br> medications; dose quantity changes<br> depending on frequency of intake:|![Log already exists message](docs/screenshots/log_exists_skip.jpg)<br> ![Creating a new log](docs/screenshots/option_two.jpg)<br> ![Dose three option in create log](docs/screenshots/dose_three_option.jpg)<br> ![Dose one option in create log](docs/screenshots/dose_one_opt.jpg)|
+|Option 3:<br> Viewing log history by date:| ![Option three chosen](docs/screenshots/option_three.jpg)<br> ![Show log history for chosen date](docs/screenshots/option_three_result.jpg)|
+|Option 4:<br> Generating a statistic<br> based on medication logs:| ![Option four choice input medication name](docs/screenshots/option_four.jpg)<br> ![Result based on medication chosen](docs/screenshots/evaluate_meds.jpg)|
+|Option 5:<br> Exiting the application:|![Option 5 to exit](docs/screenshots/option_five.jpg)|
+|Exit/ Return prompt:<br> Exit and Return to Menu<br> Prompt that pops up <br> after every function execution:|![Prompt to return to menu or exit; choice one](docs/screenshots/return_menu.jpg)<br> ![Prompt to return to menu or exit; choice two](docs/screenshots/exit_return_opt_two.jpg)|
 
 ### **Data Modeling:**
+Google Sheets were used to store medication logs and statistics evaluation results. The name of the 
+Google Sheet Spreadsheet is **adhd_medication_tracker**.
+
+**'Results' Worksheet:**<br>
+This worksheet is hidden from users visual access, when the user requests to see all medication in the application. When the statistic are generated, they get stored in this Googles Sheet Worksheet.<br>
+![Google sheet Results worksheet](docs/screenshots/googlesheets_results.jpg)
+
+**'Ritalin' Worksheet**<br>
+'Ritalin' is the name of the medication. In this worksheet, all the logs related to this medication are stored. When the name of this worksheet is called and validated, the users completed log data is stored here.
+
+![ritalin google sheet worksheet](docs/screenshots/ritalin_googlesheets.jpg)
+
+**'Concerta' is another medication name. In this worksheet, all logs realted to this medication are stored. Same as in the above workheet, when the name "Concerta" is called by user in the application, it is validated to check that it exists, and the users log data is stored here.
+
+![Concerta google sheet worksheet](docs/screenshots/concerta_googlesheets.jpg)
+
+Every time the user creates a new medication, a new worksheet is created in Google Sheets and log headings are autofilled.
+
+![New medication googlesheet worksheet](docs/screenshots/new_medication_googlesheets.jpg)
 
 ### **Possible Future Features** 
 1. **Deleting/Editing logs and medications:**
