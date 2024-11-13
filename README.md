@@ -184,9 +184,31 @@ By following these steps, you can effectively track and analyze your ADHD medica
 ### **Data Modeling:**
 
 ### **Possible Future Features** 
+1. **Deleting/Editing logs and medications:**
+     - This feature would be very useful for the user in manaing medications and logs in the case of mistakes made in the logs or redundant medications.
+
+2. **Multiple User Profiles**
+     - Allow multiple user profiles in a single app, so different individuals (e.g., family members, caregivers) can track their own medications separately.
+
+3. **User Name and Password Login**
+     - So the user can create a secured environment for their sensitive information to be stored.
+
+4. **Reminder Notifications**
+     - Implement automated reminders via email or mobile notifications to prompt users to take their medication at specific times during the day.
+     - To remind user to log their medication at the end of each day
+
+5. **Medication Alerts**
+     - Set up alerts for medication refill reminders or warnings when a user runs low on their medication.
+
+6.  **Detailed Side Effects Log**
+    - Allow users to select from a list of common side effects or enter custom symptoms, making it easier to track specific side effects across different medications.
+
+7.  **Doctor and Healthcare Colaboration**
+    - Allow users to share their medication logs and statistics with their GP, psychologist and psychiatrist; via email or integrated portal for remote monitoring and evaluations.
+   
+ 
 
 ## **Testing Phase:** 
-
 All testing related information can be found in [TESTING.md](TESTING.md)
 
 ## **Deployment:**
