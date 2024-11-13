@@ -6,7 +6,7 @@ This application is not only useful to those with ADHD, but also their caregiver
 
 ***(Developed by Iryna Walsh)*** 
 
-![Application Landing Screen](docs/screenshots/adhd_med_tracker.jpg)
+![Application Landing Screen](docs/screenshots/landing_screen.jpg)
 
 ##[Go to the ADHD Medication Tracker Application](https://adhd-medication-tracker-75ed2a4e3f76.herokuapp.com/)
 
@@ -78,7 +78,8 @@ Some of the key aims are:
   |2  |**As a person with ADHD**, <br> I want to see a daily log of my medication usage so that I can understand my medication patterns. <br><br> **I know I can do it when I can input the date of the log that I made and see all the details of the log in an ordered list.**| 
   |3  |**As a person with ADHD**, <br> I want to be able to record my daily dose intake, missed doses,the medication effectiness, side effect presence and comment on general experience <br><br> **I know I can do it if there is an easy and clearn input direction .**| 
   |4  |**As a psychiatrist**, <br> I want to view my patients' medication adherence data and track the effectiveness of different medications over time so I can optimize their treatment plan<br><br> **I know I can do it when I can access my patients medication efficacy, missed doses and side effect presence evaluations over sertain period of time.**| 
-  
+
+***  
 
 ## **Implementation Phase:** 
 ### ***Planning:***
@@ -89,6 +90,7 @@ The bellow flow of the functions was slightly changed and adjusted as the code w
 
 ### **How to Use it:**
 The ADHD Medication Tracker allows you to manage and track your ADHD medications effectively. This guide will walk you through how to use the application to add new medications, log daily intake, view medication logs, and calculate statistics to monitor your progress over time. 
+
 #### **Menu** 
 To start the application, run the Python script.It will display an ASCII art welcome message and present the main menu options. The primary menu options are:<br>
 1. Add new medication file
@@ -116,6 +118,7 @@ To add a new medication, follow these steps:
      - Side effects
      - Observations
 4. Once the medication is added, you will be prompted to create a new log for the current day. If you do not want to create a log immediately,you can return to the main menu.
+
 #### **Create New Log**
 To log daily intake and medication details:
 1. From the main menu, select option 2 to **Create new day log**.
@@ -138,6 +141,7 @@ To view medication logs for a specific date:
      - Enter the date in (DD/MM/YYYY) format you want to view.
      - Corresponding log entries for that date will be displayed
 4. If the log with the selected date does not exist, you will be notified.
+
 #### **View Medication Statistics**
 To calculate and display medication statistics:
 1. From the main menu, select option 4 to **View medication statistics**.
@@ -171,15 +175,15 @@ Here’s a typical sequence of how you might use the tracker:<br>
 By following these steps, you can effectively track and analyze your ADHD medication usage over time.
 
 ## **Current Features:**
-|Section          |  Feature Description             |Evidence                                    | 
-|-----------------|--------------------------|--------------------------------------------|
-|Main Menu        |Header:<br>               |![Name of the application](docs/screenshots/main_header.jpg)<br> ![Main menu options](docs/screenshots/main_menu.jpg)|
-|Option 1         |Adding new medications    |![Choise one creating a new medication](docs/screenshots/option_one.jpg)|
-|Option 2         |Creating logs             |![Log already exists message](docs/screenshots/log_exists_skip.jpg)<br> ![Creating a new log](docs/screenshots/option_two.jpg)<br> ![Dose three option in create log](docs/screenshots/dose_three_option.jpg)<br> ![Dose one option in create log](docs/screenshots/dose_one_opt.jpg)|
-|Option 3         |Viewing log history by date| ![Option three chosen](docs/screenshots/option_three.jpg)<br> ![Show log history for chosen date](docs/screenshots/option_three_result.jpg)|
-|Option 4         |Generating a statistic based on medication logs| ![Option four choice input medication name](docs/screenshots/option_four.jpg)<br> ![Result based on medication chosen](docs/screenshots/evaluate_meds.jpg)|
-|Option 5         |Exiting    |![Option 5 to exit](docs/screenshots/option_five.jpg)|
-|Exit/ Return prompt|Exit and Return to Menu Prompt that pops up after every function execution|![Prompt to return to menu or exit; choice one](docs/screenshots/return_menu.jpg)<br> ![Prompt to return to menu or exit; choice two](docs/screenshots/exit_return_opt_two.jpg)|
+|Section    |Feature Description  |Evidence                                                     | 
+|-----------|---------------------|-------------------------------------------------------------|
+|Main Menu  |Header and display of all menu options:|![Name of the application](docs/screenshots/main_header.jpg)<br> ![Main menu options](docs/screenshots/main_menu.jpg)|
+|Option 1         |Adding new medications process:|![Choise one creating a new medication](docs/screenshots/option_one.jpg)|
+|Option 2         |Creating logs for multiple medications; dose quantity changes depending on frequency of intake:|![Log already exists message](docs/screenshots/log_exists_skip.jpg)<br> ![Creating a new log](docs/screenshots/option_two.jpg)<br> ![Dose three option in create log](docs/screenshots/dose_three_option.jpg)<br> ![Dose one option in create log](docs/screenshots/dose_one_opt.jpg)|
+|Option 3         |Viewing log history by date:| ![Option three chosen](docs/screenshots/option_three.jpg)<br> ![Show log history for chosen date](docs/screenshots/option_three_result.jpg)|
+|Option 4  |Generating a statistic based on medication logs:| ![Option four choice input medication name](docs/screenshots/option_four.jpg)<br> ![Result based on medication chosen](docs/screenshots/evaluate_meds.jpg)|
+|Option 5 |Exiting the application:|![Option 5 to exit](docs/screenshots/option_five.jpg)|
+|Exit/ Return prompt|Exit and Return to Menu Prompt that pops up after every function execution:|![Prompt to return to menu or exit; choice one](docs/screenshots/return_menu.jpg)<br> ![Prompt to return to menu or exit; choice two](docs/screenshots/exit_return_opt_two.jpg)|
 
 ### **Data Modeling:**
 
@@ -205,11 +209,13 @@ By following these steps, you can effectively track and analyze your ADHD medica
 
 7.  **Doctor and Healthcare Colaboration**
     - Allow users to share their medication logs and statistics with their GP, psychologist and psychiatrist; via email or integrated portal for remote monitoring and evaluations.
-   
- 
 
+***
+   
 ## **Testing Phase:** 
 All testing related information can be found in [TESTING.md](TESTING.md)
+
+***
 
 ## **Deployment:**
 ### **Local Deployment**
@@ -237,7 +243,7 @@ All testing related information can be found in [TESTING.md](TESTING.md)
 12. Click on **Deploy Branch** to manualy deploy the application.
 Once deployed, Heroku will display the URL to access the Python terminal.
 
-[Link to the final Deployment]() 
+[Link to the final Deployment of ADHD Medication Tracker](https://adhd-medication-tracker-75ed2a4e3f76.herokuapp.com/) 
 
 ### **Cloning & Forking**
 #### **Clone** 
@@ -257,7 +263,33 @@ Once deployed, Heroku will display the URL to access the Python terminal.
 6. Scroll to the bottom of the page; in the bottom-right corner, click "Create Fork". 
 
 ### **Google Sheets & Google Cloud Platform**
+The program uses Google Sheets to store medication, daily logs andresults of evaluation/statistics.
+1. Sign up to a "Google Account" if you do not have one already.
+2. Open "Google Sheets" and create a new spreadsheet.
+3. Name the new spreadsheet **"adhd_medication_tracker"**
+4. In your code, use the following to access the spreadsheet:
 
+        SHEET = GSPREAD_CLIENT.open('adhd_medication_tracker')
+
+5. Change the worksheet name to "Results"
+6. Your "Google Sheet" setup is now complete.
+
+Next, you need to obtain **API credentials** from the [Google Cloud Platform](https://console.cloud.google.com/).
+
+1. Create a new project and give it a name.
+2. Fron navigation go to **APIs & Services**.
+3. Click on **Library**.
+4. Search for **Google Sheets API** and click **Enable**.
+5. Next, search for **Google Drive API** and click **Enable**
+6. Click on **Create Credentials** and from the dropdown, select **Google Drive API**.
+7. Choose **Application Data** for data type.
+8. click **Next**
+9. Enter a Service Account name "ADHDMedicationTracker" and click **Create**
+10. In th dropdown box choose **Basic** - **Editor** then click **Continue**
+11. Go to the **Service Account** section in the credentials page.
+12. Click the **Keys** tab, then click **Add Key** and choose **JSON**.
+13. Download the **JSON** file and save it as **creds.json**.
+14. Add the **creds.json** file to your .gitignore to prevent it from being shared publicly.
 
 ***
 
