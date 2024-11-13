@@ -25,6 +25,8 @@
 
   ### **Validator Testing**
 
+  The Python code was run through the [CI Python Linter](https://pep8ci.herokuapp.com/#), to check for conventional Pep8 standard of code. The validation was successfully completed without any errors.
+
   ![Validating Python code through Pep8 Linter](docs/screenshots/pep8_validation_result.jpg)
 
   ### **Accessibility Testing:**
