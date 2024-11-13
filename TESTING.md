@@ -21,61 +21,14 @@
   ![](docs/screenshots/lighthouse_accessibility.jpg)
 
   ### **Manual Testing**
-  Test adding new medication:
-
-  ![](docs/screenshots/testing/new_med_test.jpg)
-
-  ![](docs/screenshots/testing/new_med_prompt_test.jpg)
-
-  ![](docs/screenshots/testing/new_med_prompt_no_test.jpg)
-
-  Testing creation of new logs:<br>
-  ![](docs/screenshots/testing/create_log_test.jpg)
-
-  ![](docs/screenshots/testing/log_med_test.jpg)
-
-  Testing creation of data for logs:
-  - Enter name and dose:<br>
-      ![](docs/screenshots/testing/log_med_dose_test.jpg)
-
-  - Enter day itake:<br>
-      ![](docs/screenshots/testing/day_intake_test.jpg)
-
-  - Enter First,second, third dose:<br>
-      ![](docs/screenshots/testing/dose_one_test.jpg)
-
-  - Enter Efficacy:<br>
-      ![](docs/screenshots/testing/efficacy_test.jpg)
-
-  - Enter side effects:<br>
-      ![](docs/screenshots/testing/side_effects_test.jpg)
-
-  - Enter note:<br>
-      ![](docs/screenshots/testing/note_test.jpg)
-
-  Test viewing of log history:
-
-  - Date validation:<br>
-      ![](docs/screenshots/testing/view_log_date_test.jpg)
-
-  - Results when existing date log is entered:<br>
-      ![](docs/screenshots/testing/view_date_testing_two.jpg)
-
-  Test viewing the statistics:
-
-  - Wrong medication input:<br>
-      ![](docs/screenshots/testing/view_stats_test.jpg)
-
-  - Exit or Return prompt when wrong input:<br>
-      ![](docs/screenshots/testing/new_med_prompt_no_test.jpg)
-
-      ![](docs/screenshots/testing/return_exit_test.jpg)
-
-      ![](docs/screenshots/testing/exit_return_test_two.jpg)
-
-
-
-
+  |Menu Option      |  Description             |Pass/Fail|Evidence                     | 
+  |-----------------|--------------------------|---------|-----------------------------|
+  |Option 1      |Test adding new medication<br>|Pass| ![](docs/screenshots/testing/new_med_test.jpg)<br> ![](docs/screenshots/testing/new_med_prompt_test.jpg)<br> ![](docs/screenshots/testing/new_med_prompt_no_test.jpg)|
+  |Option 2      |Testing creation of new logs|Pass|![](docs/screenshots/testing/create_log_test.jpg)<br> ![](docs/screenshots/testing/log_med_test.jpg)|
+  |Option 2      |Testing creation of data for logs|Pass|Enter name and dose:<br> ![](docs/screenshots/testing/log_med_dose_test.jpg)<br><br> Enter day itake:<br> ![](docs/screenshots/testing/day_intake_test.jpg)<br><br> Enter First,second, third dose:<br> ![](docs/screenshots/testing/dose_one_test.jpg)<br><br> Enter Efficacy:<br> ![](docs/screenshots/testing/efficacy_test.jpg)<br><br> Enter side effects:<br> ![](docs/screenshots/testing/side_effects_test.jpg)<br><br> Enter note:<br> ![](docs/screenshots/testing/note_test.jpg)|
+  |Option 3      |Test viewing of log history|Pass|Date validation:<br> ![](docs/screenshots/testing/view_log_date_test.jpg)<br><br> Results when existing date log is entered:<br> ![](docs/screenshots/testing/view_date_testing_two.jpg)|
+  |Option 4      |Test viewing the statistics|Pass|Wrong medication input:<br> ![](docs/screenshots/testing/view_stats_test.jpg)|
+  |Option 5      |Exiting and Return/Exit prompts|Pass|Exit or Return prompt when wrong input:<br> ![](docs/screenshots/testing/new_med_prompt_no_test.jpg)<br> ![](docs/screenshots/testing/return_exit_test.jpg)<br> ![](docs/screenshots/testing/exit_return_test_two.jpg)|
 
   ### **User Story Testing**
 
