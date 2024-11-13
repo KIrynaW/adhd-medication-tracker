@@ -1,7 +1,7 @@
 # Testing Page
 ## Table of Contents
  [**Testing Phase**](#testing-phase)
-  * [***Bugs***](#bugs)
+  * [***Solved Bugs***](#solved-bugs)
   * [***Validator Testing***](#validator-testing)
   * [***Accessibility Testing***](#accessibility-testing)
   * [***Manual Testing***](#manual-testing)
@@ -10,25 +10,39 @@
   ***
 
   ## **Testing Phase:**
-  ### **Bugs**
+  ### **Solved Bugs**
+  There were not many prominent, hard to solve bugs encountered in the creation of the ADHD Medication Tracker. 
+  Throughout the creation of the code, there were various insignificant errors propping up, but were imediately handled.
+
+  There is one bug that stood out though:
+
+  **Statistics evaluation bug**<br>
+  Issue : <br>
+     - Errors started to occur due to the statistic evaluation results being printed directly in the existing medication worksheet. This led to conflict, as the data appended to the same sheet, cause disruption to the flow of the code and prevented other parts of the code from being correctly validated. 
+
+  Solution: <br>
+     - To resolve this, a separate sheet was created specifically for storing the statistical evaluation results, enduring that medication data remained unaffected. The new worksheet "Results" was created to handle and store all statistics related to the medication logs, such as missed doses, efficacy averages, and side effects. Additionally, the "Results" worksheet was hidden from the general view, preventing it from being mistakenly accessed as medication worksheet. this fix streamlined the data management process and eliminated eroors caused by the data overlap.
 
   ### **Validator Testing**
 
-  ![](docs/screenshots/pep8_validation_result.jpg)
+  ![Validating Python code through Pep8 Linter](docs/screenshots/pep8_validation_result.jpg)
 
   ### **Accessibility Testing:**
 
-  ![](docs/screenshots/lighthouse_accessibility.jpg)
+  There were minor chanes made to the html of the project, to add a background image and to centre the terminal. As a result we needed to confirm that it goes throuh accessibility validator without any problems.
+  ![Checking accessibility of the aplication](docs/screenshots/lighthouse_accessibility.jpg)
+
+  The application was also run though the W3C HTML validator and showed no errors in the code. result can be seen ["Here":](https://validator.w3.org/nu/?doc=https%3A%2F%2Fadhd-medication-tracker-75ed2a4e3f76.herokuapp.com%2F)
 
   ### **Manual Testing**
-  |Menu Option      |  Description             |Pass/Fail|Evidence                     | 
-  |-----------------|--------------------------|---------|-----------------------------|
-  |Option 1      |Test adding new medication<br>|Pass| ![](docs/screenshots/testing/new_med_test.jpg)<br> ![](docs/screenshots/testing/new_med_prompt_test.jpg)<br> ![](docs/screenshots/testing/new_med_prompt_no_test.jpg)|
-  |Option 2      |Testing creation of new logs|Pass|![](docs/screenshots/testing/create_log_test.jpg)<br> ![](docs/screenshots/testing/log_med_test.jpg)|
-  |Option 2      |Testing creation of data for logs|Pass|Enter name and dose:<br> ![](docs/screenshots/testing/log_med_dose_test.jpg)<br><br> Enter day itake:<br> ![](docs/screenshots/testing/day_intake_test.jpg)<br><br> Enter First,second, third dose:<br> ![](docs/screenshots/testing/dose_one_test.jpg)<br><br> Enter Efficacy:<br> ![](docs/screenshots/testing/efficacy_test.jpg)<br><br> Enter side effects:<br> ![](docs/screenshots/testing/side_effects_test.jpg)<br><br> Enter note:<br> ![](docs/screenshots/testing/note_test.jpg)|
-  |Option 3      |Test viewing of log history|Pass|Date validation:<br> ![](docs/screenshots/testing/view_log_date_test.jpg)<br><br> Results when existing date log is entered:<br> ![](docs/screenshots/testing/view_date_testing_two.jpg)|
-  |Option 4      |Test viewing the statistics|Pass|Wrong medication input:<br> ![](docs/screenshots/testing/view_stats_test.jpg)|
-  |Option 5      |Exiting and Return/Exit prompts|Pass|Exit or Return prompt when wrong input:<br> ![](docs/screenshots/testing/new_med_prompt_no_test.jpg)<br> ![](docs/screenshots/testing/return_exit_test.jpg)<br> ![](docs/screenshots/testing/exit_return_test_two.jpg)|
+  |Menu Option   |  Description   |Pass/Fail|Evidence                                        | 
+  |--------------|----------------|---------|------------------------------------------------|
+  |Option 1   |Test adding new medication<br> inputting variety of invalid strings in order to trigger the error.<br>All error handling performed as expected. |Pass| ![New medication test](docs/screenshots/testing/new_med_test.jpg)<br> ![New medication prompt test](docs/screenshots/testing/new_med_prompt_test.jpg)<br> ![New medication second prompt](docs/screenshots/testing/new_med_prompt_no_test.jpg)|
+  |Option 2    |Testing creation of new logs:<br> inputting variety of invalid strings in order to trigger the error.<br>All error handling performed as expected.|Pass|![Create a log testing](docs/screenshots/testing/create_log_test.jpg)<br> ![Medication log test](docs/screenshots/testing/log_med_test.jpg)|
+  |Option 2    |Testing creation of data for logs:<br> inputting variety of invalid strings in order to trigger the error.<br>All error handling performed as expected.|Pass|Enter name and dose:<br> ![Medication log dose test](docs/screenshots/testing/log_med_dose_test.jpg)<br><br> Enter day itake:<br> ![Day intake test](docs/screenshots/testing/day_intake_test.jpg)<br><br> Enter First,second, third dose:<br> ![Dose one test](docs/screenshots/testing/dose_one_test.jpg)<br><br> Enter Efficacy:<br> ![Efficacy test](docs/screenshots/testing/efficacy_test.jpg)<br><br> Enter side effects:<br> ![Side effects test](docs/screenshots/testing/side_effects_test.jpg)<br><br> Enter note:<br> ![](docs/screenshots/testing/note_test.jpg)|
+  |Option 3    |Test viewing of log history:<br> inputting variety of invalid strings in order to trigger the error.<br> All error handling performed as expected.|Pass|Date validation:<br> ![View log date test](docs/screenshots/testing/view_log_date_test.jpg)<br><br> Results when existing date log is entered:<br> ![View date testing](docs/screenshots/testing/view_date_testing_two.jpg)|
+  |Option 4    |Test viewing the statistics: <br> inputting variety of invalid strings in order to trigger the error.<br> All error handling performed as expected.|Pass|Wrong medication input:<br> ![View statistics test](docs/screenshots/testing/view_stats_test.jpg)|
+  |Option 5    |Exiting and Return/Exit prompts:<br> inputting variety of invalid strings in order to trigger the error.<br> All error handling performed as expected.|Pass|Exit or Return prompt when wrong input:<br> ![New medication prompt](docs/screenshots/testing/new_med_prompt_no_test.jpg)<br> ![Return and Exit prompt function test](docs/screenshots/testing/return_exit_test.jpg)<br> ![Exit and return test two](docs/screenshots/testing/exit_return_test_two.jpg)|
 
   ### **User Story Testing**
 

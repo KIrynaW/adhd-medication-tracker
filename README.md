@@ -271,7 +271,7 @@ The program uses Google Sheets to store medication, daily logs andresults of eva
 
         SHEET = GSPREAD_CLIENT.open('adhd_medication_tracker')
 
-5. Change the worksheet name to "Results"
+5. Change the worksheet name to "Ritalin"
 6. Your "Google Sheet" setup is now complete.
 
 Next, you need to obtain **API credentials** from the [Google Cloud Platform](https://console.cloud.google.com/).
