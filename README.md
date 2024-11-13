@@ -8,7 +8,7 @@ This application is not only useful to those with ADHD, but also their caregiver
 
 ![Application Landing Screen](docs/screenshots/landing_screen.jpg)
 
-##[Go to the ADHD Medication Tracker Application](https://adhd-medication-tracker-75ed2a4e3f76.herokuapp.com/)
+[Go to the ADHD Medication Tracker Application](https://adhd-medication-tracker-75ed2a4e3f76.herokuapp.com/)
 
 ***
 
