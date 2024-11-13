@@ -8,7 +8,7 @@ This application is not only useful to those with ADHD, but also their caregiver
 
 ![Application Landing Screen](docs/screenshots/adhd_med_tracker.jpg)
 
-##[Go to the ADHD Medication Tracker Application]()
+##[Go to the ADHD Medication Tracker Application](https://adhd-medication-tracker-75ed2a4e3f76.herokuapp.com/)
 
 ***
 
@@ -23,7 +23,9 @@ This application is not only useful to those with ADHD, but also their caregiver
       * [*Add Medication*](#add-medication) 
       * [*Create New Log*](#create-new-log) 
       * [*View Medication Logs*](#view-medication-logs)
-      * [*Evaluate Medication Efficacy*](#evaluate-medication-efficacy)
+      * [*View Medication Statistics*](#view-medication-statistics)
+      * [*Exiting the application*](#exiting-the-application)
+    * [***Example Workflow***](#example-workflow)
     * [***Current Features***](#current-features)
     * [***Data Modeling***](#data-modeling)
     * [***Possible Future Features***](#possible-future-features) 
@@ -85,12 +87,88 @@ The bellow flow of the functions was slightly changed and adjusted as the code w
 
 ![Flow chart of the ADHD Medication Tracker](docs/screenshots/adhd_medicationtracker_flowchart.jpeg)
 
-### **How to Use it:** 
+### **How to Use it:**
+The ADHD Medication Tracker allows you to manage and track your ADHD medications effectively. This guide will walk you through how to use the application to add new medications, log daily intake, view medication logs, and calculate statistics to monitor your progress over time. 
 #### **Menu** 
-#### **Add Medication**
+To start the application, run the Python script.It will display an ASCII art welcome message and present the main menu options. The primary menu options are:<br>
+1. Add new medication file
+2. Create new day log
+3. View medication logs
+4. View medication statistics
+5. Exit
+
+You must enter one of the above options in order to proceed.
+
+#### **Option 1: Add Medication**
+To add a new medication, follow these steps:
+1. From the main menu, select option 1 to **Add new medication file**.
+2. You will be prompted to enter the name of the medication.
+     - Enter the name of the medication you want to track (e.g., "Adderall", "Ritalin").
+     - If you enter a name that already exists, the program will notify you and list the existing medication names.
+3. After adding the medication, a new worksheet is created with the medication's name. The worksheet will include the following headers for logging:
+     - Date
+     - Dose (mg)
+     - Intake (day)
+     - Dose 1
+     - Dose 2
+     - Dose 3
+     - Efficacy
+     - Side effects
+     - Observations
+4. Once the medication is added, you will be prompted to create a new log for the current day. If you do not want to create a log immediately,you can return to the main menu.
 #### **Create New Log**
+To log daily intake and medication details:
+1. From the main menu, select option 2 to **Create new day log**.
+2. You will be shown a list of current medications, and you will need to enter the medication name you wish to log.
+3. After selecting the medication:
+     - **Date**: The current date will be autofilled
+     - **Dose (mg)**: Enter the perscribed dose of medication in (mg) (eg. 10mg, 18mg, etc.)
+     - **Intake frequency**: Enter how many doses of medication you take per day (1-3).
+     - **Doses taken**: For each dose you will be asked whether you took it or not.
+     - **Efficacy**: Rate the effectivnes of medication in the current day from 0 to 10 (0= very ineffective to 10= very effective)
+     - **Side effects**: You will be asked if you experienced side effects that day (yes or no)
+     - **Observations**: Enter any personal notes or observations about the medication (max 20 words).
+4. The log will be saved in Google Sheet for the future reference. Afterwards you will have an option to return to main menu or create anoter log.
+
 #### **View Medication Logs**
-#### **Evaluate Medication Efficacy**
+To view medication logs for a specific date:
+1. From the main menu, select option 3 to **View medication logs**.
+2. You will be prompted to enter medication name which logs you want to view.
+3. After selecting th mdication:
+     - Enter the date in (DD/MM/YYYY) format you want to view.
+     - Corresponding log entries for that date will be displayed
+4. If the log with the selected date does not exist, you will be notified.
+#### **View Medication Statistics**
+To calculate and display medication statistics:
+1. From the main menu, select option 4 to **View medication statistics**.
+2. You will be prompted to enter medication name which statistics you want to generate/view.
+3. The logs for the selected medication will then by analyzed, showing:
+     - The number of days that were analysed.
+     - The missed doses for each dose(1-3)  
+     - The number of days with incomplete medication intake.
+     - Avarage efficacy rating.
+     - The number of days with side effects.
+The statistic will be displayed in a clear format and its data stored in the "Results" worksheet in Google Sheets for future reference.
+
+#### **Exiting the application**
+To exit:
+1. You can choose to exit the application from the main menu, by selecting option 5 **Exit** and also at any point in the process there are prompts that allow you to go back to main menu or exit by selection Option 1 or Option 2.
+2. When choosing to exit, you will see a message of confirmation of your choise and goodbye.
+
+### **Example Workflow:**
+Here’s a typical sequence of how you might use the tracker:<br>
+1. Run the application
+2. **Add a new medication** (e.g., "Adderall").
+3. **Log today's intake** for "Adderall":
+     - Enter the dose (e.g., 20 mg).
+     - Specify the number of doses taken (e.g., 1 dose).
+     - Rate the efficacy (e.g., 8).
+     - Mention any side effects (e.g., "None").
+     - Enter a short observation (e.g., "Felt focused").
+4. **View medication** logs to check your previous logs for "Adderall".
+5. **View statistics** to get an overview of how well you are adhearing to your medication plan.
+
+By following these steps, you can effectively track and analyze your ADHD medication usage over time.
 
 ## **Current Features:**
 |Section          |  Feature Description             |Evidence                                    | 
